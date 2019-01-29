@@ -1,0 +1,7 @@
+->         /                          health.Routes
+->         /                          definition.Routes
+
+GET        /lookup/:target            uk.gov.hmrc.vatregisteredcompaniesapi.controllers.VatRegCoLookupController.lookup(target: String)
+GET        /lookup/:target/:requester uk.gov.hmrc.vatregisteredcompaniesapi.controllers.VatRegCoLookupController.lookupVerified(target: String, requester: String)
+
+GET        /admin/metrics             @com.kenshoo.play.metrics.MetricsController.metrics

@@ -1,0 +1,20 @@
+@import play.api.libs.json.Json
+@(apiContext: String)
+{
+  "scopes":[],
+  "api": {
+    "name": "Check a UK VAT number",
+    "description": "Allows for retrieval VAT registered companies",
+    "context": "@apiContext",
+    "versions": [
+      {
+        "version": "1.0",
+        "status": "BETA",
+        "endpointsEnabled": true,
+        "access": {
+          "type": "PUBLIC"
+        }
+      }
+    ]
+  }
+}
