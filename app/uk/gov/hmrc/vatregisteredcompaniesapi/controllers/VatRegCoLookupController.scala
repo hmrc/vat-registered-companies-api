@@ -59,7 +59,7 @@ class VatRegCoLookupController @Inject()(
           "processing date" -> d.toString
         )
         auditConnector.sendExplicitAudit(
-          "Verified VAT registered company check via API", // TODO double check this scoping of the splunk message
+          "Verified VAT registered company check",
           details
         )
       case _ => ()
