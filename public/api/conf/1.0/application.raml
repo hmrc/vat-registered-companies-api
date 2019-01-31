@@ -22,222 +22,71 @@ documentation:
   - title: Testing
     content: !include docs/testing.md
 
-/notifications:
-    /unpulled:
-      /:
-      get:
-        displayName: Get an list of unpulled notifications
-        description: Allows retrieval of unpulled notifications
-        headers:
-          Accept:
-            description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
-            type: string
-            required: true
-            example: application/vnd.hmrc.1.0+xml
-        securedBy: [ sec.x-application ]
-        responses:
-          200:
-            body:
-              application/xml:
-                description: Valid XML Payload
-                example: |
-                  <resource href="/notifications/unpulled/">
-                      <link rel="self" href="/notifications/unpulled/"/>
-                      <link rel="notification" href="/notifications/unpulled/7ab99957-b138-4f09-888e-ab4e8107bbe0"/>
-                  </resource>
-      /{notificationId}:
+/organisations/vat:
+    /check-vat-number/lookup:
+      /{vrn}:
         uriParameters:
-          notificationId:
-            description: Notification identifier UUID
+          vrn:
+            description: VAT registration number. <br> A nine-digit or twelve-digit number.
             type: string
-            example: "3851c039-107a-42c9-94a9-180893e5f0d5"
+            example: "123456789"
         get:
-          displayName: Get an unpulled notification
-          description: Allows retrieval of an unpulled notification
+          displayName: Get a VAT registration
+          description: Allows retrieval of name and address of a VAT registered company
           headers:
             Accept:
               description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
               type: string
               required: true
-              example: application/vnd.hmrc.1.0+xml
           securedBy: [ sec.x-application ]
           responses:
             200:
               body:
-                application/xml:
-                  description: Valid XML Payload
+                application/json:
                   example: |
-                    <?xml version="1.0" encoding="UTF-8"?>
-                    <soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
-                      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                      xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
-                       <soapenv:Header/>
-                       <soapenv:Body>
-                          <n1:InventoryLinkingImportsDeclarationStatusNotification xmlns:n1="http://gov.uk/customs/inventoryLinkingImport/v1">
-                             <n1:declarationMethod>2</n1:declarationMethod>
-                             <n1:dateOfEntry>2018-11-15T11:54:27.000Z</n1:dateOfEntry>
-                             <n1:entryNumber>18GBCN36B8HDVFGVR6</n1:entryNumber>
-                             <n1:entryVersionNumber>2</n1:entryVersionNumber>
-                             <n1:goodsArrivalDeclaration>Y</n1:goodsArrivalDeclaration>
-                             <n1:ics>14</n1:ics>
-                             <n1:inventoryConsignmentReference>GB/1234-99999886JCP</n1:inventoryConsignmentReference>
-                             <n1:roe>0</n1:roe>
-                             <n1:traderReference>8GB025115100018-123456ABABAB1</n1:traderReference>
-                             <n1:totalPackages>55</n1:totalPackages>
-                          </n1:InventoryLinkingImportsDeclarationStatusNotification>
-                       </soapenv:Body>
-                    </soapenv:Envelope>
-            400:
-              body:
-                application/xml:
-                  description: Invalid XML Payload
-                  example: |
-                      <?xml version="1.0" encoding="UTF-8"?>
-                      <errorResponse>
-                        <code>BAD_REQUEST</code>
-                        <message>Notification is unpulled</message>
-                      </errorResponse>
-            404:
-              body:
-                application/xml:
-                  description: Invalid XML Payload
-                  example: |
-                      <?xml version="1.0" encoding="UTF-8"?>
-                      <errorResponse>
-                        <code>NOT_FOUND</code>
-                        <message>Resource was not found</message>
-                      </errorResponse>
-
-    /pulled:
-      /:
-      get:
-        displayName: Get an list of pulled notifications
-        description: Allows retrieval of pulled notifications
-        headers:
-          Accept:
-            description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
-            type: string
-            required: true
-            example: application/vnd.hmrc.1.0+xml
-        securedBy: [ sec.x-application ]
-        responses:
-          200:
-            body:
-              application/xml:
-                description: Valid XML Payload
-                example: |
-                  <resource href="/notifications/pulled/">
-                      <link rel="self" href="/notifications/pulled/"/>
-                      <link rel="notification" href="/notifications/pulled/7ab99957-b138-4f09-888e-ab4e8107bbe0"/>
-                  </resource>
-      /{notificationId}:
-        uriParameters:
-          notificationId:
-            description: Notification identifier UUID
-            type: string
-            example: "3851c039-107a-42c9-94a9-180893e5f0d5"
-        get:
-          displayName: Get a pulled notification
-          description: Allows retrieval of a notification that has already been pulled
-          headers:
-            Accept:
-              description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
-              type: string
-              required: true
-              example: application/vnd.hmrc.1.0+xml
-
-          securedBy: [ sec.x-application ]
-          responses:
-            200:
-              body:
-                application/xml:
-                  description: Valid XML Payload
-                  example: |
-                    <?xml version="1.0" encoding="UTF-8"?>
-                    <soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
-                      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                      xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
-                       <soapenv:Header/>
-                       <soapenv:Body>
-                          <n1:InventoryLinkingImportsDeclarationStatusNotification xmlns:n1="http://gov.uk/customs/inventoryLinkingImport/v1">
-                             <n1:declarationMethod>2</n1:declarationMethod>
-                             <n1:dateOfEntry>2018-11-15T11:54:27.000Z</n1:dateOfEntry>
-                             <n1:entryNumber>18GBCN36B8HDVFGVR6</n1:entryNumber>
-                             <n1:entryVersionNumber>2</n1:entryVersionNumber>
-                             <n1:goodsArrivalDeclaration>Y</n1:goodsArrivalDeclaration>
-                             <n1:ics>14</n1:ics>
-                             <n1:inventoryConsignmentReference>GB/1234-99999886JCP</n1:inventoryConsignmentReference>
-                             <n1:roe>0</n1:roe>
-                             <n1:traderReference>8GB025115100018-123456ABABAB1</n1:traderReference>
-                             <n1:totalPackages>55</n1:totalPackages>
-                          </n1:InventoryLinkingImportsDeclarationStatusNotification>
-                       </soapenv:Body>
-                    </soapenv:Envelope>
-            400:
-              body:
-                application/xml:
-                  description: Invalid XML Payload
-                  example: |
-                      <?xml version="1.0" encoding="UTF-8"?>
-                      <errorResponse>
-                        <code>BAD_REQUEST</code>
-                        <message>Notification is unpulled</message>
-                      </errorResponse>
-            404:
-              body:
-                application/xml:
-                  description: Invalid XML Payload
-                  example: |
-                      <?xml version="1.0" encoding="UTF-8"?>
-                      <errorResponse>
-                        <code>NOT_FOUND</code>
-                        <message>Resource was not found</message>
-                      </errorResponse>
-
-    /:
-      get:
-        displayName: Get a list of all available notifications
-        description: Allows retrieval of a list of notifications waiting to be pulled
-        headers:
-          Accept:
-            description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
-            type: string
-            required: true
-            example: application/vnd.hmrc.1.0+xml
-
-        securedBy: [ sec.x-application ]
-        responses:
-          200:
-            body:
-              application/xml:
-                description: Valid XML Payload
-                example: |
-                  <resource href="/notifications/">
-                      <link rel="self" href="/notifications/"/>
-                      <link rel="notification" href="/notifications/7ab99957-b138-4f09-888e-ab4e8107bbe0"/>
-                  </resource>
-
-    /{id}:
-      delete:
-        displayName: Retrieve and delete a notification from the api-notification-queue
-        description: Allows retrieval of individual notifications. The notification will be returned in the response body and then deleted from the api-notification-queue.
-        headers:
-          Accept:
-            description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
-            type: string
-            required: true
-            example: application/vnd.hmrc.1.0+xml
-
-        securedBy: [ sec.x-application ]
-        responses:
-          200:
-            body:
-              application/xml:
-                description: The saved message
-                example: |
-                  <example>
-                    Saved Message
-                  </example>
-          404:
+                    {
+                        "target": {
+                            "name":"Credite Sberger Donal Inc.",
+                            "vatNumber":"553557881",
+                            "address":{
+                                "line1":"131B Barton Hamlet",
+                                "postcode":"SW97 5CK",
+                                "countryCode":"GB"
+                                }
+                        },
+                        "processingDate":"2019-01-31T12:43:17.092"
+                    }
+       /{vrn}/{vrn}:
+               uriParameters:
+                 vrn:
+                   description: VAT registration number. <br> A nine-digit or twelve-digit number.
+                   type: string
+                   example: "123456789"
+               get:
+                 displayName: Get a VAT registration with a consultation number
+                 description: Allows retrieval of name and address of a VAT registered company and a consultation number
+                 headers:
+                   Accept:
+                     description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
+                     type: string
+                     required: true
+                 securedBy: [ sec.x-application ]
+                 responses:
+                   200:
+                     body:
+                       application/json:
+                         example: |
+                            {
+                                "target":{
+                                    "name":"Credite Sberger Donal Inc.",
+                                    "vatNumber":"553557881",
+                                    "address":{
+                                        "line1":"131B Barton Hamlet",
+                                        "postcode":"SW97 5CK",
+                                        "countryCode":"GB"
+                                    }
+                                },
+                                "requester":"146295999727",
+                                "consultationNumber":"ypAeKRPlW",
+                                "processingDate":"2019-01-31T12:53:05.205"
+                            }

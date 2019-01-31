@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package unit.controllers
+package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
 import akka.stream.Materializer
 import play.api.Configuration
 import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
-import uk.gov.hmrc.apinotificationpull.config.AppContext
-import uk.gov.hmrc.apinotificationpull.controllers.DefinitionController
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
+import uk.gov.hmrc.vatregisteredcompaniesapi.config.AppContext
 import views.txt
 
 class DefinitionControllerSpec extends UnitSpec with WithFakeApplication {

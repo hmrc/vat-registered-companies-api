@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.apinotificationpull.controllers
+package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
 import javax.inject.{Inject, Singleton}
 

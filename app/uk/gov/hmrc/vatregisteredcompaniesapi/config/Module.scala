@@ -16,13 +16,19 @@
 
 package uk.gov.hmrc.vatregisteredcompaniesapi.config
 
-import javax.inject.{Inject, Singleton}
-import play.api.Mode.Mode
-import play.api.{Configuration, Environment}
-import uk.gov.hmrc.play.config.ServicesConfig
+import com.google.inject.AbstractModule
+import uk.gov.hmrc.api.connector.{ApiServiceLocatorConnector, ServiceLocatorConnector}
+import uk.gov.hmrc.api.controllers.DocumentationController
+import uk.gov.hmrc.http.CorePost
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
-@Singleton
-class ServiceConfiguration @Inject()(override val runModeConfiguration: Configuration,
-                                     environment: Environment) extends ServicesConfig {
-  override protected def mode: Mode = environment.mode
+class Module extends AbstractModule {
+
+  override def configure(): Unit = {
+    bind(classOf[CorePost]).to(classOf[DefaultHttpClient])
+    bind(classOf[ServiceLocatorConnector]).to(classOf[ApiServiceLocatorConnector])
+    bind(classOf[DocumentationController]).toInstance(DocumentationController)
+    bind(classOf[ApplicationRegistration]).asEagerSingleton()
+  }
+
 }

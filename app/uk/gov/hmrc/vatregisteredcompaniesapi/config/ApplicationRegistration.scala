@@ -18,11 +18,19 @@ package uk.gov.hmrc.vatregisteredcompaniesapi.config
 
 import javax.inject.{Inject, Singleton}
 import play.api.Mode.Mode
-import play.api.{Configuration, Environment}
-import uk.gov.hmrc.play.config.ServicesConfig
+import play.api.{Application, Configuration, Environment, Logger}
+import uk.gov.hmrc.api.config.ServiceLocatorConfig
+import uk.gov.hmrc.api.connector.ServiceLocatorConnector
+import uk.gov.hmrc.http.HeaderCarrier
 
 @Singleton
-class ServiceConfiguration @Inject()(override val runModeConfiguration: Configuration,
-                                     environment: Environment) extends ServicesConfig {
-  override protected def mode: Mode = environment.mode
+class ApplicationRegistration @Inject()(environment: Environment, app: Application, serviceLocatorConnector: ServiceLocatorConnector)
+  extends ServiceLocatorConfig {
+
+  override val mode: Mode = environment.mode
+  override val runModeConfiguration: Configuration = app.configuration
+  val registrationEnabled: Boolean = getConfBool("service-locator.enabled", defBool = true)
+
+  Logger.info(s"Registration enabled: $registrationEnabled")
+  if (registrationEnabled) serviceLocatorConnector.register(HeaderCarrier())
 }

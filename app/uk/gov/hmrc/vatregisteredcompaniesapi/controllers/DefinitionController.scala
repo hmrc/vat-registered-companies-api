@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.apinotificationpull.controllers
+package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
 import javax.inject.{Inject, Singleton}
 import play.api.http.{ContentTypes, MimeTypes}
 import play.api.mvc.{Action, AnyContent, Codec}
-import uk.gov.hmrc.apinotificationpull.config.AppContext
+import uk.gov.hmrc.vatregisteredcompaniesapi.config.AppContext
 import uk.gov.hmrc.play.bootstrap.controller.BaseController
 import views.txt
 

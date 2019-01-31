@@ -1,4 +1,4 @@
 # routes for api definition
 
-GET        /api/definition                 @uk.gov.hmrc.apinotificationpull.controllers.DefinitionController.get
-GET        /api/conf/:version/*file        @uk.gov.hmrc.apinotificationpull.controllers.DocumentationController.conf(version, file)
+GET        /api/definition                 @uk.gov.hmrc.vatregisteredcompaniesapi.controllers.DefinitionController.get
+GET        /api/conf/:version/*file        @uk.gov.hmrc.vatregisteredcompaniesapi.controllers.DocumentationController.conf(version, file)
