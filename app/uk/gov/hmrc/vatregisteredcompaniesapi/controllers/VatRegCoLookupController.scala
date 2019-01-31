@@ -49,6 +49,7 @@ class VatRegCoLookupController @Inject()(
       lookup(Lookup(target))
     }
 
+  // TODO probably this can be removed - the BE audits this
   private def auditVerifiedLookup(result: Option[LookupResponse])(implicit headerCarrier: HeaderCarrier): Unit = {
     result match {
       case Some(LookupResponse(Some(a), Some(b), Some(c), d)) =>
