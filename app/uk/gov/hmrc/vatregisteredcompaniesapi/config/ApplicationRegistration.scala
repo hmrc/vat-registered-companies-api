@@ -33,4 +33,5 @@ class ApplicationRegistration @Inject()(environment: Environment, app: Applicati
 
   Logger.info(s"Registration enabled: $registrationEnabled")
   if (registrationEnabled) serviceLocatorConnector.register(HeaderCarrier())
+
 }
