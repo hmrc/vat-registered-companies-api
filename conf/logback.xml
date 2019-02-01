@@ -56,7 +56,7 @@
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name="api-notification-pull" level="${logger.api-notification-pull:-DEBUG}"/>
+    <logger name="vat-registered-companies-api" level="${logger.vat-registered-companies-api:-DEBUG}"/>
 
     <root level="ERROR">
         <appender-ref ref="FILE"/>
