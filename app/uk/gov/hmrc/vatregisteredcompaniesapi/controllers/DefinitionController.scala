@@ -28,8 +28,8 @@ import scala.concurrent.Future
 @Singleton
 class DefinitionController @Inject()(appContext: AppContext) extends BaseController {
 
-  def get(): Action[AnyContent] = Action.async {
-    Future.successful(Ok(txt.definition(appContext.apiContext)).as(ContentTypes.withCharset(MimeTypes.JSON)(Codec.utf_8)))
+  def get(): Action[AnyContent] = Action {
+    Ok(txt.definition(appContext.apiContext)).as(ContentTypes.withCharset(MimeTypes.JSON)(Codec.utf_8))
   }
 
 }
