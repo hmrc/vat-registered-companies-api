@@ -37,7 +37,7 @@ class VatRegCoLookupController @Inject()(
   private def lookup(lookup: Lookup)(implicit headerCarrier: HeaderCarrier) =
     vatRegisteredCompaniesConnector.lookup(lookup).map {x =>
       Ok(Json.toJson(x.getOrElse(LookupResponse(None))))
-    }
+    } // TODO add failure outcomes
 
   def lookupVerified(target: VatNumber, requester: VatNumber): Action[AnyContent] =
     Action.async { implicit request =>
@@ -49,21 +49,4 @@ class VatRegCoLookupController @Inject()(
       lookup(Lookup(target))
     }
 
-  // TODO probably this can be removed - the BE audits this
-  private def auditVerifiedLookup(result: Option[LookupResponse])(implicit headerCarrier: HeaderCarrier): Unit = {
-    result match {
-      case Some(LookupResponse(Some(a), Some(b), Some(c), d)) =>
-        val details = Map[String, String](
-          "check on VAT number: " -> a.vatNumber,
-          "check by company with VAT number: " -> b,
-          "generated consultation number: " -> c,
-          "processing date" -> d.toString
-        )
-        auditConnector.sendExplicitAudit(
-          "Verified VAT registered company check",
-          details
-        )
-      case _ => ()
-    }
-  }
 }

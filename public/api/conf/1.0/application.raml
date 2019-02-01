@@ -24,10 +24,10 @@ documentation:
 
 /organisations/vat:
     /check-vat-number/lookup:
-      /{vrn}:
+      /{targetVrn}:
         uriParameters:
-          vrn:
-            description: VAT registration number. <br> A nine-digit or twelve-digit number.
+          targetVrn:
+            description: VAT registration number you wish to check. <br> A nine-digit or twelve-digit number.
             type: string
             example: "123456789"
         get:
@@ -56,37 +56,41 @@ documentation:
                         },
                         "processingDate":"2019-01-31T12:43:17.092"
                     }
-       /{vrn}/{vrn}:
-               uriParameters:
-                 vrn:
-                   description: VAT registration number. <br> A nine-digit or twelve-digit number.
-                   type: string
-                   example: "123456789"
-               get:
-                 displayName: Get a VAT registration with a consultation number
-                 description: Allows retrieval of name and address of a VAT registered company and a consultation number
-                 headers:
-                   Accept:
-                     description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
-                     type: string
-                     required: true
-                 securedBy: [ sec.x-application ]
-                 responses:
-                   200:
-                     body:
-                       application/json:
-                         example: |
-                            {
-                                "target":{
-                                    "name":"Credite Sberger Donal Inc.",
-                                    "vatNumber":"553557881",
-                                    "address":{
-                                        "line1":"131B Barton Hamlet",
-                                        "postcode":"SW97 5CK",
-                                        "countryCode":"GB"
-                                    }
-                                },
-                                "requester":"146295999727",
-                                "consultationNumber":"ypAeKRPlW",
-                                "processingDate":"2019-01-31T12:53:05.205"
+      /{targetVrn}/{requesterVrn}:
+        uriParameters:
+          targetVrn:
+            description: Your VAT registration number. <br> A nine-digit or twelve-digit number.
+            type: string
+            example: "123456789"
+          requesterVrn:
+            description: Your VAT registration number. <br> A nine-digit or twelve-digit number.
+            type: string
+            example: "123456789"
+        get:
+          displayName: Get a VAT registration with a consultation number
+          description: Allows retrieval of name and address of a VAT registered company and a consultation number
+          headers:
+            Accept:
+              description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
+              type: string
+              required: true
+          securedBy: [ sec.x-application ]
+          responses:
+            200:
+              body:
+                application/json:
+                  example: |
+                    {
+                        "target":{
+                            "name":"Credite Sberger Donal Inc.",
+                            "vatNumber":"553557881",
+                            "address":{
+                                "line1":"131B Barton Hamlet",
+                                "postcode":"SW97 5CK",
+                                "countryCode":"GB"
                             }
+                        },
+                        "requester":"146295999727",
+                        "consultationNumber":"ypAeKRPlW",
+                        "processingDate":"2019-01-31T12:53:05.205"
+                    }
