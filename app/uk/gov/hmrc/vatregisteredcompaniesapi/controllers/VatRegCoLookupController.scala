@@ -35,8 +35,9 @@ class VatRegCoLookupController @Inject()(
 )(implicit executionContext: ExecutionContext) extends BaseController {
 
   private def lookup(lookup: Lookup)(implicit headerCarrier: HeaderCarrier) =
-    vatRegisteredCompaniesConnector.lookup(lookup).map {x =>
-      Ok(Json.toJson(x.getOrElse(LookupResponse(None))))
+    vatRegisteredCompaniesConnector.lookup(lookup).map {
+      case Some(company) => Ok(Json.toJson(company))
+      case _ => ??? 
     } // TODO add failure outcomes
 
   def lookupVerified(target: VatNumber, requester: VatNumber): Action[AnyContent] =
