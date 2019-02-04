@@ -6,7 +6,7 @@
     "name": "Check a UK VAT number",
     "description": "Allows for retrieval VAT registered companies",
     "context": "@apiContext",
-    "categories": ["VAT"],
+    "categories": ["VAT_MTD"],
     "versions": [
       {
         "version": "1.0",
