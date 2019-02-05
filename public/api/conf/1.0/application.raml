@@ -56,6 +56,30 @@ documentation:
                         },
                         "processingDate":"2019-01-31T12:43:17.092"
                     }
+            403:
+              body:
+                application/json:
+                  example: |
+                    {
+                      "code": "403",
+                      "message": "Invalid targetVrn - Vrn parameters should be 9 or 12 digits"
+                    }
+            404:
+              body:
+                application/json:
+                  example: |
+                    {
+                      "code": "404",
+                      "message": "targetVrn does not match a registered company"
+                    }
+            500:
+              body:
+                application/json:
+                  example: |
+                    {
+                      "code": "500",
+                      "message": "Unknown error"
+                    }
       /{targetVrn}/{requesterVrn}:
         uriParameters:
           targetVrn:
@@ -93,4 +117,28 @@ documentation:
                         "requester":"146295999727",
                         "consultationNumber":"ypAeKRPlW",
                         "processingDate":"2019-01-31T12:53:05.205"
+                    }
+            403:
+              body:
+                application/json:
+                  example: |
+                    {
+                      "code": "403",
+                      "message": "Invalid requesterVrn - Vrn parameters should be 9 or 12 digits"
+                    }
+            404:
+              body:
+                application/json:
+                  example: |
+                    {
+                      "code": "404",
+                      "message": "requesterVrn does not match a registered company"
+                    }
+            500:
+              body:
+                application/json:
+                  example: |
+                    {
+                      "code": "500",
+                      "message": "Unknown error"
                     }
