@@ -59,28 +59,31 @@ documentation:
             403:
               body:
                 application/json:
+                  schema: !include "schemas/error.json"
                   description: Invalid request
                   example: |
                     {
-                      "code": "403",
+                      "code": "INVALID_REQUEST",
                       "message": "Invalid targetVrn - Vrn parameters should be 9 or 12 digits"
                     }
             404:
               body:
                 application/json:
+                  schema: !include "schemas/error.json"
                   description: Not found
                   example: |
                     {
-                      "code": "404",
+                      "code": "NOT_FOUND",
                       "message": "targetVrn does not match a registered company"
                     }
             500:
               body:
                 application/json:
+                  schema: !include "schemas/error.json"
                   description: Internal server error
                   example: |
                     {
-                      "code": "500",
+                      "code": "INTERNAL_SERVER_ERROR",
                       "message": "Unknown error"
                     }
       /{targetVrn}/{requesterVrn}:
@@ -124,24 +127,30 @@ documentation:
             403:
               body:
                 application/json:
+                  schema: !include "schemas/error.json"
+                  description: Invalid request
                   example: |
                     {
-                      "code": "403",
+                      "code": "INVALID_REQUEST",
                       "message": "Invalid requesterVrn - Vrn parameters should be 9 or 12 digits"
                     }
             404:
               body:
                 application/json:
+                  schema: !include "schemas/error.json"
+                  description: Not found
                   example: |
                     {
-                      "code": "404",
+                      "code": "NOT_FOUND",
                       "message": "requesterVrn does not match a registered company"
                     }
             500:
               body:
                 application/json:
+                  schema: !include "schemas/error.json"
+                  description: Internal server error
                   example: |
                     {
-                      "code": "500",
+                      "code": "INTERNAL_SERVER_ERROR",
                       "message": "Unknown error"
                     }
