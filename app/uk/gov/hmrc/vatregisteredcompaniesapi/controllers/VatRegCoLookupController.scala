@@ -67,7 +67,6 @@ class VatRegCoLookupController @Inject()(
   }
 
   private def lookup(lookup: Lookup)(implicit headerCarrier: HeaderCarrier): Future[Result] = {
-
     if (!isValid(lookup)) {
       Future(Forbidden(Json.toJson(handleInvalidRequest(lookup))))
     } else {
