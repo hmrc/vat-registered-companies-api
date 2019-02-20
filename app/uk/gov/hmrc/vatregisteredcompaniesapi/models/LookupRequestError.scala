@@ -16,11 +16,21 @@
 
 package uk.gov.hmrc.vatregisteredcompaniesapi.models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class LookupRequestError(code: String, message: String)
+
 object LookupRequestError {
-  implicit val format = Json.format[LookupRequestError]
+
+  val NOT_FOUND = "NOT_FOUND"
+  val INVALID_REQUEST = "INVALID_REQUEST"
+  val targetNotFoundMsg = "targetVrn does not match a registered company"
+  val requesterNotFoundMsg = "requesterVrn does not match a registered company"
+  val invalidTargetVrnMsg = "Invalid targetVrn - Vrn parameters should be 9 or 12 digits"
+  val invalidRequesterVrnMsg = "Invalid requesterVrn - Vrn parameters should be 9 or 12 digits"
+  val invalidTargetAndRequesterVrnMsg = "Invalid targetVrn and requesterVrn - Vrn parameters should be 9 or 12 digits"
+
+  implicit val format: OFormat[LookupRequestError] = Json.format[LookupRequestError]
 }
 
 

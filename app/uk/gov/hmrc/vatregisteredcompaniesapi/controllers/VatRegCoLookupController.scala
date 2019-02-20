@@ -53,16 +53,16 @@ class VatRegCoLookupController @Inject()(
     (lookup.target.matches(vatNoRegex), lookup.requester.forall(_.matches(vatNoRegex))) match {
       case (false, false) =>
           LookupRequestError(
-            "INVALID_REQUEST",
-            "Invalid targetVrn and requesterVrn - Vrn parameters should be 9 or 12 digits")
+            LookupRequestError.INVALID_REQUEST,
+            LookupRequestError.invalidTargetAndRequesterVrnMsg)
       case (_, false) =>
           LookupRequestError(
-            "INVALID_REQUEST",
-            "Invalid requesterVrn - Vrn parameters should be 9 or 12 digits")
+            LookupRequestError.INVALID_REQUEST,
+            LookupRequestError.invalidRequesterVrnMsg)
       case (false, _) =>
           LookupRequestError(
-            "INVALID_REQUEST",
-            "Invalid targetVrn - Vrn parameters should be 9 or 12 digits")
+            LookupRequestError.INVALID_REQUEST,
+            LookupRequestError.invalidTargetVrnMsg)
     }
   }
 
@@ -73,11 +73,11 @@ class VatRegCoLookupController @Inject()(
       vatRegisteredCompaniesConnector.lookup(lookup).map {
         case Some(LookupResponse(Some(_), _, None, _)) if lookup.requester.nonEmpty =>
           Forbidden(Json.toJson(
-            LookupRequestError("NOT_FOUND", "requesterVrn does not match a registered company")
+            LookupRequestError(LookupRequestError.NOT_FOUND, LookupRequestError.requesterNotFoundMsg)
           ))
         case Some(LookupResponse(None, _, _, _)) =>
           NotFound(Json.toJson(
-            LookupRequestError("NOT_FOUND", "targetVrn does not match a registered company")
+            LookupRequestError(LookupRequestError.NOT_FOUND, LookupRequestError.targetNotFoundMsg)
           ))
         case Some(company) =>
           Ok(Json.toJson(

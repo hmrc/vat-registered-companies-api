@@ -116,7 +116,7 @@ lazy val playPublishingSettings: Seq[sbt.Setting[_]] = sbtrelease.ReleasePlugin.
   publishAllArtefacts
 
 lazy val scoverageSettings: Seq[Setting[_]] = Seq(
-  coverageExcludedPackages := "<empty>;com.kenshoo.play.metrics.*;.*definition.*;prod.*;testOnlyDoNotUseInAppConf.*;app.*;uk.gov.hmrc.BuildInfo;views.*;uk.gov.hmrc.vatregisteredcompaniesapi.config.*",
+  coverageExcludedPackages := "<empty>;com.kenshoo.play.metrics.*;.*definition.*;prod.*;testOnlyDoNotUseInAppConf.*;app.*;uk.gov.hmrc.BuildInfo;.*connector.*;.*config.*",
   coverageMinimum := 96,
   coverageFailOnMinimum := true,
   coverageHighlighting := true,
