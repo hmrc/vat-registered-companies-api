@@ -81,11 +81,7 @@ class VatRegCoLookupController @Inject()(
             LookupRequestError(LookupRequestError.NOT_FOUND, LookupRequestError.targetNotFoundMsg)
           ))
         case Some(company) =>
-          Ok(Json.toJson
-            (
-              company
-            )
-          )
+          Ok(Json.toJson(company))
       }.recover {
         case e =>
           Logger.error(e.getMessage, e.fillInStackTrace())
