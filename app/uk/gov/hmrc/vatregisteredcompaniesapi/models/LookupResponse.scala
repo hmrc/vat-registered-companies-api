@@ -24,7 +24,7 @@ case class LookupResponse(
   target: Option[VatRegisteredCompany],
   requester: Option[VatNumber] = None,
   consultationNumber: Option[ConsultationNumber] = None,
-  processingDate: OffsetDateTime = OffsetDateTime.now(ZoneOffset.UTC)
+  processingDate: ProcessingDate = OffsetDateTime.now(ZoneOffset.UTC)
 )
 
 object LookupResponse {
