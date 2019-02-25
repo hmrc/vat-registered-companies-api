@@ -16,8 +16,7 @@
 
 package uk.gov.hmrc.vatregisteredcompaniesapi
 
-import java.time.format.DateTimeFormatter
-import java.time.{Instant, LocalDateTime, LocalTime}
+import java.time._
 
 import scala.util.Random
 
@@ -26,7 +25,7 @@ package object models {
   type CompanyName = String
   type VatNumber = String
   type ConsultationNumber = String
-  type ProcessingDate = LocalDateTime
+  type ProcessingDate = OffsetDateTime
 
   object ConsultationNumber {
     def generate: ConsultationNumber =
@@ -39,10 +38,5 @@ package object models {
   implicit class RichVatNumber(val self: VatNumber) {
     def clean: VatNumber = self.replace("GB", "")
   }
-
-  implicit class RichProcessingDate(val self: ProcessingDate) {
-    override def toString: String = self.format(DateTimeFormatter.ofPattern("h:mma"))
-  }
-
 
 }

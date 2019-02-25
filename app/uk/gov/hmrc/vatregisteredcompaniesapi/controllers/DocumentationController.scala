@@ -16,9 +16,8 @@
 
 package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
-import javax.inject.{Inject, Singleton}
-
 import controllers.AssetsBuilder
+import javax.inject.{Inject, Singleton}
 import play.api.http.HttpErrorHandler
 import play.api.mvc.{Action, AnyContent}
 import uk.gov.hmrc.play.bootstrap.controller.BaseController

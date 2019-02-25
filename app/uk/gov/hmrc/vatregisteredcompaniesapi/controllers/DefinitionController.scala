@@ -19,11 +19,9 @@ package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 import javax.inject.{Inject, Singleton}
 import play.api.http.{ContentTypes, MimeTypes}
 import play.api.mvc.{Action, AnyContent, Codec}
-import uk.gov.hmrc.vatregisteredcompaniesapi.config.AppContext
 import uk.gov.hmrc.play.bootstrap.controller.BaseController
+import uk.gov.hmrc.vatregisteredcompaniesapi.config.AppContext
 import views.txt
-
-import scala.concurrent.Future
 
 @Singleton
 class DefinitionController @Inject()(appContext: AppContext) extends BaseController {

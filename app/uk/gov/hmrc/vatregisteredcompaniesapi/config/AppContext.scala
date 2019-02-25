@@ -17,7 +17,6 @@
 package uk.gov.hmrc.vatregisteredcompaniesapi.config
 
 import javax.inject.{Inject, Singleton}
-
 import play.api.Configuration
 
 @Singleton
