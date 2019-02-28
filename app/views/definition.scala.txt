@@ -13,7 +13,9 @@
         "status": "BETA",
         "endpointsEnabled": true,
         "access": {
-          "type": "PUBLIC"
+          "type": "PRIVATE",
+          "whitelistedApplicationIds":[],
+          "isTrial":true
         }
       }
     ]
