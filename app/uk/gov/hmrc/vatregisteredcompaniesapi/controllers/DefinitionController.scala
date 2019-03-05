@@ -23,11 +23,18 @@ import uk.gov.hmrc.play.bootstrap.controller.BaseController
 import uk.gov.hmrc.vatregisteredcompaniesapi.config.AppContext
 import views.txt
 
+import scala.collection.JavaConverters
+
 @Singleton
 class DefinitionController @Inject()(appContext: AppContext) extends BaseController {
 
   def get(): Action[AnyContent] = Action {
-    Ok(txt.definition(appContext.apiContext)).as(ContentTypes.withCharset(MimeTypes.JSON)(Codec.utf_8))
+    Ok(txt.definition(appContext.apiContext, whitelist)).as(ContentTypes.withCharset(MimeTypes.JSON)(Codec.utf_8))
   }
 
+  val whitelist: Seq[String] = convertListToSeq(appContext.whiteListedAppIds)
+
+  private def convertListToSeq(inputList: java.util.List[String]): Seq[String] = {
+    JavaConverters.asScalaIteratorConverter(inputList.iterator()).asScala.toSeq
+  }
 }
