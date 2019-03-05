@@ -31,7 +31,12 @@ class DefinitionControllerSpec extends UnitSpec with WithFakeApplication {
 
   private val apiScope = "scope"
   private val apiContext = "context"
-  private val appContext = new AppContext(Configuration("api.definition.scope" -> apiScope, "api.context" -> apiContext))
+  private val ids = Seq.empty[String]
+  private val appContext =
+    new AppContext(Configuration(
+      "api.definition.scope" -> apiScope,
+      "api.context" -> apiContext,
+      "api.access.white-list.applicationIds" -> ids))
   private val controller = new DefinitionController(appContext)
 
   "DefinitionController.definition" should {
@@ -46,7 +51,7 @@ class DefinitionControllerSpec extends UnitSpec with WithFakeApplication {
     }
 
     "return definition in the body" in {
-      jsonBodyOf(result) shouldBe Json.parse(txt.definition(apiContext).toString())
+      jsonBodyOf(result) shouldBe Json.parse(txt.definition(apiContext, controller.whitelist).toString())
     }
   }
 
