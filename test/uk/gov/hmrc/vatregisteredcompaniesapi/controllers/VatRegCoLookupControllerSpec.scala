@@ -105,16 +105,16 @@ class VatRegCoLookupControllerSpec extends WordSpec
       val result = controller.lookupVerified(testVatNo, testVatNo).apply(fakeRequest)
       status(result) shouldBe Status.FORBIDDEN
       Json.fromJson[LookupRequestError](contentAsJson(result)).map { lre =>
-        lre.code shouldBe LookupRequestError.NOT_FOUND
+        lre.code shouldBe LookupRequestError.INVALID_REQUEST
         lre.message shouldBe LookupRequestError.requesterNotFoundMsg
       }
     }
   }
 
   "GET of an invalid VAT number " should {
-    "return 403 " in {
+    "return 400 " in {
       val result = controller.lookup("foobar").apply(fakeRequest)
-      status(result) shouldBe Status.FORBIDDEN
+      status(result) shouldBe Status.BAD_REQUEST
       Json.fromJson[LookupRequestError](contentAsJson(result)).map { lre =>
         lre.code shouldBe LookupRequestError.INVALID_REQUEST
         lre.message shouldBe LookupRequestError.invalidTargetVrnMsg
@@ -123,9 +123,9 @@ class VatRegCoLookupControllerSpec extends WordSpec
   }
 
   "GET of an invalid VAT number and invalid requester VAT number" should {
-    "return 403 " in {
+    "return 400 " in {
       val result = controller.lookupVerified("foobar", "barfoo").apply(fakeRequest)
-      status(result) shouldBe Status.FORBIDDEN
+      status(result) shouldBe Status.BAD_REQUEST
       Json.fromJson[LookupRequestError](contentAsJson(result)).map { lre =>
         lre.code shouldBe LookupRequestError.INVALID_REQUEST
         lre.message shouldBe LookupRequestError.invalidTargetAndRequesterVrnMsg
@@ -134,9 +134,9 @@ class VatRegCoLookupControllerSpec extends WordSpec
   }
 
   "GET of an valid VAT number and invalid requester VAT number" should {
-    "return 403 " in {
-      val result = controller.lookupVerified(testVatNo, "barfoo").apply(fakeRequest)
-      status(result) shouldBe Status.FORBIDDEN
+    "return 400 " in {
+      val result = controller.lookupVerified(testVatNo, "foobar").apply(fakeRequest)
+      status(result) shouldBe Status.BAD_REQUEST
       Json.fromJson[LookupRequestError](contentAsJson(result)).map { lre =>
         lre.code shouldBe LookupRequestError.INVALID_REQUEST
         lre.message shouldBe LookupRequestError.invalidRequesterVrnMsg
