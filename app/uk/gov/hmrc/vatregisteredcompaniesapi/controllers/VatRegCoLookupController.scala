@@ -69,12 +69,12 @@ class VatRegCoLookupController @Inject()(
 
   private def lookup(lookup: Lookup)(implicit headerCarrier: HeaderCarrier): Future[Result] = {
     if (!isValid(lookup)) {
-      Future(Forbidden(Json.toJson(handleInvalidRequest(lookup))))
+      Future(BadRequest(Json.toJson(handleInvalidRequest(lookup))))
     } else {
       vatRegisteredCompaniesConnector.lookup(lookup).map {
         case Some(LookupResponse(Some(_), _, None, _)) if lookup.requester.nonEmpty =>
           Forbidden(Json.toJson(
-            LookupRequestError(LookupRequestError.NOT_FOUND, LookupRequestError.requesterNotFoundMsg)
+            LookupRequestError(LookupRequestError.INVALID_REQUEST, LookupRequestError.requesterNotFoundMsg)
           ))
         case Some(LookupResponse(None, _, _, _)) =>
           NotFound(Json.toJson(
