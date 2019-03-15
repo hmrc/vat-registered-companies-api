@@ -27,11 +27,11 @@ documentation:
       /{targetVrn}:
         uriParameters:
           targetVrn:
-            description: VAT registration number you wish to check. <br> A nine-digit or twelve-digit number.
+            description: UK VAT registration number you wish to check. <br> A 9-digit or 12-digit number.
             type: string
             example: "123456789"
         get:
-          displayName: Check VAT registration details
+          displayName: Get a VAT registration
           description: Allows retrieval of name and address of a VAT registered company
           headers:
             Accept:
@@ -97,8 +97,8 @@ documentation:
             type: string
             example: "123456789"
         get:
-          displayName: Check VAT registration details with a consultation number
-          description: Allows retrieval of name and address of a VAT registered company and a consultation number
+          displayName: Get a VAT registration with a reference number
+          description: Retrieves the name and address of a UK VAT-registered business, if the business exists.
           headers:
             Accept:
               description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
