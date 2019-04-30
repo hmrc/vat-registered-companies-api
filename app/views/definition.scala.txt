@@ -14,7 +14,8 @@
         "endpointsEnabled": true,
         "access": {
           "type": "PRIVATE",
-          "whitelistedApplicationIds": @Json.toJson(whitelistedApplicationIds)
+          "whitelistedApplicationIds": @Json.toJson(whitelistedApplicationIds),
+          "isTrial":false
         }
       }
     ]
