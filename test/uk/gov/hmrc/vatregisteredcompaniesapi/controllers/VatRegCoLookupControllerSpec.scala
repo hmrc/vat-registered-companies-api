@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
-import java.time.{LocalDateTime, OffsetDateTime, ZoneOffset}
+import java.time.{LocalDateTime, ZoneId}
 
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -47,7 +47,7 @@ class VatRegCoLookupControllerSpec extends WordSpec
   val controller = new VatRegCoLookupController(mockVatRegisteredCompaniesConnector, mockAuditConnector)
   val testVatNo: VatNumber = "123456789"
   val testConsultationNumber: ConsultationNumber = ConsultationNumber.generate
-  val testProcessingDate: ProcessingDate = OffsetDateTime.now(ZoneOffset.UTC)
+  val testProcessingDate: ProcessingDate = LocalDateTime.now(ZoneId.of("Europe/London"))
   val t = testProcessingDate.toString
   val fakeRequest = FakeRequest("GET", "/lookup/123456789")
   implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
