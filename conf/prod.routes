@@ -1,5 +1,5 @@
 ->         /                          health.Routes
-->         /                          definition.Routes
+->         /                          dynamicDefinition.Routes
 
 GET        /lookup/:target            uk.gov.hmrc.vatregisteredcompaniesapi.controllers.VatRegCoLookupController.lookup(target: String)
 GET        /lookup/:target/:requester uk.gov.hmrc.vatregisteredcompaniesapi.controllers.VatRegCoLookupController.lookupVerified(target: String, requester: String)

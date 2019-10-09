@@ -28,5 +28,5 @@ class AppContext @Inject()(configuration: Configuration) {
   private val whitelistAppConfigKey = "api.access.white-list.applicationIds"
   val apiScopeKey: String = configuration.underlying.getString(apiScopeConfigKey)
   val apiContext: String = configuration.underlying.getString(apiContextConfigKey)
-  val whiteListedAppIds: util.List[String] = configuration.underlying.getStringList(whitelistAppConfigKey)
+  val whiteListedAppIds: Seq[String] = configuration.get[Seq[String]](whitelistAppConfigKey)
 }
