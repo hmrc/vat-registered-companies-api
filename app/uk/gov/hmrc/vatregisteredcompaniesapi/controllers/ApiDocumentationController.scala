@@ -16,25 +16,31 @@
 
 package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
+import controllers.Assets
 import javax.inject.{Inject, Singleton}
 import play.api.http.{ContentTypes, MimeTypes}
-import play.api.mvc.{Action, AnyContent, Codec}
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
+import play.api.mvc.{Action, AnyContent, Codec, ControllerComponents}
+import uk.gov.hmrc.customs.api.common.controllers.DocumentationController
 import uk.gov.hmrc.vatregisteredcompaniesapi.config.AppContext
 import views.txt
 
-import scala.collection.JavaConverters
+import scala.concurrent.Future
 
 @Singleton
-class DefinitionController @Inject()(appContext: AppContext) extends BaseController {
+class ApiDocumentationController @Inject()
+(
+  assets: Assets,
+  cc: ControllerComponents,
+  appContext: AppContext
+) extends DocumentationController (assets, cc) {
 
-  def get(): Action[AnyContent] = Action {
-    Ok(txt.definition(appContext.apiContext, whitelist)).as(ContentTypes.withCharset(MimeTypes.JSON)(Codec.utf_8))
-  }
-
-  val whitelist: Seq[String] = convertListToSeq(appContext.whiteListedAppIds)
-
-  private def convertListToSeq(inputList: java.util.List[String]): Seq[String] = {
-    JavaConverters.asScalaIteratorConverter(inputList.iterator()).asScala.toSeq
+  def definition(): Action[AnyContent] = Action.async {
+    Future.successful(
+      Ok(
+        txt.definition(
+          appContext.apiContext,
+          appContext.whiteListedAppIds
+        )
+      ).as(ContentTypes.withCharset(MimeTypes.JSON)(Codec.utf_8)))
   }
 }

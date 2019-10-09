@@ -20,10 +20,10 @@ import cats.implicits._
 import javax.inject.{Inject, Singleton}
 import play.api.Logger
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent, Result}
+import play.api.mvc.{Action, AnyContent, ControllerComponents, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
+import uk.gov.hmrc.play.bootstrap.controller.BackendController
 import uk.gov.hmrc.vatregisteredcompaniesapi.connectors.VatRegisteredCompaniesConnector
 import uk.gov.hmrc.vatregisteredcompaniesapi.models.{Lookup, LookupRequestError, LookupResponse, VatNumber}
 
@@ -32,8 +32,9 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class VatRegCoLookupController @Inject()(
   vatRegisteredCompaniesConnector: VatRegisteredCompaniesConnector,
-  auditConnector: AuditConnector
-)(implicit executionContext: ExecutionContext) extends BaseController {
+  auditConnector: AuditConnector,
+  cc: ControllerComponents
+)(implicit executionContext: ExecutionContext) extends BackendController(cc) {
 
   def lookupVerified(target: VatNumber, requester: VatNumber): Action[AnyContent] =
     Action.async { implicit request =>
@@ -84,7 +85,11 @@ class VatRegCoLookupController @Inject()(
           Ok(Json.toJson(company))
       }.recover {
         case e =>
-          Logger.error(e.getMessage, e.fillInStackTrace())
+          Logger
+            .error(
+              e.getMessage,
+              e.fillInStackTrace()
+            )
           InternalServerError(Json.toJson(LookupRequestError("INTERNAL_SERVER_ERROR", "Unknown error")))
       }
     }

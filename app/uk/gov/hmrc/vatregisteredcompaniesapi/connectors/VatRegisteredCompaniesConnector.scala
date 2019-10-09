@@ -17,11 +17,10 @@
 package uk.gov.hmrc.vatregisteredcompaniesapi.connectors
 
 import javax.inject.Inject
-import play.api.Mode.Mode
 import play.api.{Configuration, Environment}
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.vatregisteredcompaniesapi.models._
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -29,13 +28,11 @@ import scala.concurrent.{ExecutionContext, Future}
 class VatRegisteredCompaniesConnector @Inject()(
   http: HttpClient,
   environment: Environment,
-  configuration: Configuration
-) extends ServicesConfig {
+  configuration: Configuration,
+  servicesConfig: ServicesConfig
+) {
 
-  override protected def mode: Mode = environment.mode
-  override protected def runModeConfiguration: Configuration = configuration
-
-  lazy val url: String = s"${baseUrl("vat-registered-companies")}/vat-registered-companies"
+  lazy val url: String = s"${servicesConfig.baseUrl("vat-registered-companies")}/vat-registered-companies"
 
   def lookup(lookup: Lookup)
     (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[LookupResponse]] = lookup.requester match {

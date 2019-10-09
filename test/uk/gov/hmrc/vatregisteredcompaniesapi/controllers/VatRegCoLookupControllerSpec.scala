@@ -44,7 +44,8 @@ class VatRegCoLookupControllerSpec extends WordSpec
 
   val mockVatRegisteredCompaniesConnector: VatRegisteredCompaniesConnector = mock[VatRegisteredCompaniesConnector]
   val mockAuditConnector: AuditConnector = mock[AuditConnector]
-  val controller = new VatRegCoLookupController(mockVatRegisteredCompaniesConnector, mockAuditConnector)
+  val cc = play.api.test.Helpers.stubControllerComponents()
+  val controller = new VatRegCoLookupController(mockVatRegisteredCompaniesConnector, mockAuditConnector, cc)
   val testVatNo: VatNumber = "123456789"
   val testConsultationNumber: ConsultationNumber = ConsultationNumber.generate
   val testProcessingDate: ProcessingDate = LocalDateTime.now(ZoneId.of("Europe/London"))

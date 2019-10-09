@@ -15,7 +15,6 @@
  */
 
 import AppDependencies._
-import play.sbt.routes.RoutesKeys._
 import sbt.Keys._
 import sbt.Tests.{Group, SubProcess}
 import sbt.{Resolver, _}
@@ -62,7 +61,6 @@ lazy val microservice = (project in file("."))
     unitTestSettings,
     integrationTestSettings,
     componentTestSettings,
-    playSettings,
     playPublishingSettings,
     allTest,
     scoverageSettings,
@@ -107,16 +105,12 @@ lazy val commonSettings: Seq[Setting[_]] =
     defaultSettings() ++
     gitStampSettings
 
-lazy val playSettings: Seq[Setting[_]] = Seq(
-  routesImport ++= Seq("uk.gov.hmrc.customs.api.common.domain._")
-)
-
 lazy val playPublishingSettings: Seq[sbt.Setting[_]] = sbtrelease.ReleasePlugin.releaseSettings ++
   Seq(credentials += SbtCredentials) ++
   publishAllArtefacts
 
 lazy val scoverageSettings: Seq[Setting[_]] = Seq(
-  coverageExcludedPackages := "<empty>;com.kenshoo.play.metrics.*;.*definition.*;prod.*;testOnlyDoNotUseInAppConf.*;app.*;uk.gov.hmrc.BuildInfo;.*connector.*;.*config.*",
+  coverageExcludedPackages := "<empty>;.*(Reverse|Routes).*;com.kenshoo.play.metrics.*;.*definition.*;prod.*;testOnlyDoNotUseInAppConf.*;app.*;uk.gov.hmrc.BuildInfo;.*connector.*;.*config.*",
   coverageMinimum := 96,
   coverageFailOnMinimum := true,
   coverageHighlighting := true,
