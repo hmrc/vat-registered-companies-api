@@ -18,9 +18,9 @@ package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
 import cats.implicits._
 import javax.inject.{Inject, Singleton}
-import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, ControllerComponents, Result}
+import uk.gov.hmrc.customs.api.common.logging.CdsLogger
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
@@ -33,7 +33,8 @@ import scala.concurrent.{ExecutionContext, Future}
 class VatRegCoLookupController @Inject()(
   vatRegisteredCompaniesConnector: VatRegisteredCompaniesConnector,
   auditConnector: AuditConnector,
-  cc: ControllerComponents
+  cc: ControllerComponents,
+  logger: CdsLogger
 )(implicit executionContext: ExecutionContext) extends BackendController(cc) {
 
   def lookupVerified(target: VatNumber, requester: VatNumber): Action[AnyContent] =
@@ -85,7 +86,7 @@ class VatRegCoLookupController @Inject()(
           Ok(Json.toJson(company))
       }.recover {
         case e =>
-          Logger
+          logger
             .error(
               e.getMessage,
               e.fillInStackTrace()

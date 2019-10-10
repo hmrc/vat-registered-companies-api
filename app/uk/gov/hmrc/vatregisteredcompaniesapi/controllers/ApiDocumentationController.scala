@@ -39,7 +39,7 @@ class ApiDocumentationController @Inject()
       Ok(
         txt.definition(
           appContext.apiContext,
-          appContext.whiteListedAppIds
+          appContext.whiteListedAppIds.getOrElse(Seq.empty[String])
         )
       ).as(ContentTypes.withCharset(MimeTypes.JSON)(Codec.utf_8)))
   }

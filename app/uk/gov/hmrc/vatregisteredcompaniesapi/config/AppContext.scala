@@ -16,8 +16,6 @@
 
 package uk.gov.hmrc.vatregisteredcompaniesapi.config
 
-import java.util
-
 import javax.inject.{Inject, Singleton}
 import play.api.Configuration
 
@@ -28,5 +26,5 @@ class AppContext @Inject()(configuration: Configuration) {
   private val whitelistAppConfigKey = "api.access.white-list.applicationIds"
   val apiScopeKey: String = configuration.underlying.getString(apiScopeConfigKey)
   val apiContext: String = configuration.underlying.getString(apiContextConfigKey)
-  val whiteListedAppIds: Seq[String] = configuration.get[Seq[String]](whitelistAppConfigKey)
+  val whiteListedAppIds: Option[Seq[String]] = configuration.getOptional[Seq[String]](whitelistAppConfigKey)
 }
