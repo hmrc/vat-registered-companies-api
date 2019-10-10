@@ -27,8 +27,10 @@ import play.api.http.Status
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsJson, status, _}
+import uk.gov.hmrc.customs.api.common.logging.CdsLogger
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.vatregisteredcompaniesapi.connectors.VatRegisteredCompaniesConnector
 import uk.gov.hmrc.vatregisteredcompaniesapi.models._
 
@@ -45,7 +47,8 @@ class VatRegCoLookupControllerSpec extends WordSpec
   val mockVatRegisteredCompaniesConnector: VatRegisteredCompaniesConnector = mock[VatRegisteredCompaniesConnector]
   val mockAuditConnector: AuditConnector = mock[AuditConnector]
   val cc = play.api.test.Helpers.stubControllerComponents()
-  val controller = new VatRegCoLookupController(mockVatRegisteredCompaniesConnector, mockAuditConnector, cc)
+  private val mockLogger = new VRCLLogger(mock[ServicesConfig])
+  val controller = new VatRegCoLookupController(mockVatRegisteredCompaniesConnector, mockAuditConnector, cc, mockLogger)
   val testVatNo: VatNumber = "123456789"
   val testConsultationNumber: ConsultationNumber = ConsultationNumber.generate
   val testProcessingDate: ProcessingDate = LocalDateTime.now(ZoneId.of("Europe/London"))
@@ -156,4 +159,26 @@ class VatRegCoLookupControllerSpec extends WordSpec
     }
   }
 
+}
+
+class VRCLLogger(servicesConfig: ServicesConfig) extends CdsLogger(servicesConfig) {
+  override lazy val logger = play.api.Logger("VRCLLogger")
+
+  override def debug(s: => String): Unit =
+    println(s)
+
+  override def debug(s: => String, e: => Throwable): Unit =
+    println(s)
+
+  override def info(s: => String): Unit =
+    println(s)
+
+  override def warn(s: => String): Unit =
+    println(s)
+
+  override def error(s: => String, e: => Throwable): Unit =
+    println(s)
+
+  override def error(s: => String): Unit =
+    println(s)
 }
