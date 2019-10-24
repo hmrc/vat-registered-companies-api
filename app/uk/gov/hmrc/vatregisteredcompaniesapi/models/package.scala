@@ -25,7 +25,7 @@ package object models {
   type CompanyName = String
   type VatNumber = String
   type ConsultationNumber = String
-  type ProcessingDate = LocalDateTime
+  type ProcessingDate = ZonedDateTime
 
   object ConsultationNumber {
     def generate: ConsultationNumber =
