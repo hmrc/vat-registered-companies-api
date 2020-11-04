@@ -21,12 +21,14 @@ import sbt.{Resolver, _}
 import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, scalaSettings, targetJvm}
 import uk.gov.hmrc.PublishingSettings._
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
+import uk.gov.hmrc.gitstamp.GitStampPlugin._
 
 name := "vat-registered-companies-api"
 PlayKeys.playDefaultPort := 8733
 
 targetJvm := "jvm-1.8"
 
+Seq( gitStampSettings: _* )
 
 lazy val allResolvers = resolvers ++= Seq(
   Resolver.bintrayRepo("hmrc", "releases"),
