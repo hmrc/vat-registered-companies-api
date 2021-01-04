@@ -11,12 +11,7 @@
       {
         "version": "1.0",
         "status": "BETA",
-        "endpointsEnabled": true,
-        "access": {
-          "type": "PRIVATE",
-          "whitelistedApplicationIds": @Json.toJson(whitelistedApplicationIds),
-          "isTrial":false
-        }
+        "endpointsEnabled": true
       }
     ]
   }
