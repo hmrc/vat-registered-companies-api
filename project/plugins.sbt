@@ -2,7 +2,7 @@ resolvers += Resolver.url("HMRC Sbt Plugin Releases", url("https://dl.bintray.co
 resolvers += "HMRC Releases" at "https://dl.bintray.com/hmrc/releases"
 resolvers += "typesafe-releases" at "https://dl.bintray.com/content/repositories/typesafe-releases"
 
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8.5")
+addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.13")
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.23")
 

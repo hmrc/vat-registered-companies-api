@@ -3,7 +3,7 @@ import sbt._
 
 object AppDependencies {
 
-  private val customsApiCommonVersion = "1.42.0"
+  private val customsApiCommonVersion = "1.53.0"
   private val hmrcTestVersion = "3.9.0-play-26"
   private val scalaTestVersion = "3.0.8"
   private val mockitoVersion = "3.0.0"

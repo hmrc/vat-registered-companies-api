@@ -22,11 +22,13 @@ import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, s
 import uk.gov.hmrc.PublishingSettings._
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.gitstamp.GitStampPlugin._
+import sbt.dsl.LinterLevel.Ignore
 
 name := "vat-registered-companies-api"
 PlayKeys.playDefaultPort := 8733
 
 targetJvm := "jvm-1.8"
+scalaVersion := "2.12.11"
 
 Seq( gitStampSettings: _* )
 
@@ -107,7 +109,7 @@ lazy val commonSettings: Seq[Setting[_]] =
     defaultSettings() ++
     gitStampSettings
 
-lazy val playPublishingSettings: Seq[sbt.Setting[_]] = sbtrelease.ReleasePlugin.releaseSettings ++
+lazy val playPublishingSettings: Seq[sbt.Setting[_]] = Seq(credentials += SbtCredentials) ++
   Seq(credentials += SbtCredentials) ++
   publishAllArtefacts
 
