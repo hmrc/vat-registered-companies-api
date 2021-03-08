@@ -3,7 +3,7 @@ import sbt._
 
 object AppDependencies {
 
-  private val customsApiCommonVersion = "1.53.0"
+  private val customsApiCommonVersion = "1.52.0"
   private val hmrcTestVersion = "3.9.0-play-26"
   private val scalaTestVersion = "3.0.8"
   private val mockitoVersion = "3.0.0"
@@ -12,7 +12,7 @@ object AppDependencies {
   private val testScope = "test,it"
 
   val customsApiCommon = "uk.gov.hmrc" %% "customs-api-common" % customsApiCommonVersion withSources()
-  val apiCommon = "uk.gov.hmrc" %% "play-hmrc-api" % "4.1.0-play-26"
+  val apiCommon = "uk.gov.hmrc" %% "play-hmrc-api" % "5.3.0-play-26"
   val hmrcTest = "uk.gov.hmrc" %% "hmrctest" % hmrcTestVersion % testScope
   val scalaTest = "org.scalatest" %% "scalatest" % scalaTestVersion % testScope
   val mockito = "org.mockito" % "mockito-core" % mockitoVersion % testScope
