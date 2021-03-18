@@ -11,7 +11,10 @@
       {
         "version": "1.0",
         "status": "BETA",
-        "endpointsEnabled": true
+        "endpointsEnabled": true,
+        "access": {
+          "type": "PUBLIC"
+        }
       }
     ]
   }
