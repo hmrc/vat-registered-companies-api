@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import AppDependencies._
+import AppDependencies.{compile => compileDependencies, test => testDependencies}
 import sbt.Keys._
 import sbt.Tests.{Group, SubProcess}
 import sbt.{Resolver, _}
@@ -28,14 +28,9 @@ name := "vat-registered-companies-api"
 PlayKeys.playDefaultPort := 8733
 
 targetJvm := "jvm-1.8"
-scalaVersion := "2.12.11"
+scalaVersion := "2.12.13"
 
 Seq( gitStampSettings: _* )
-
-lazy val allResolvers = resolvers ++= Seq(
-  Resolver.bintrayRepo("hmrc", "releases"),
-  Resolver.jcenterRepo
-)
 
 lazy val ComponentTest = config("component") extend Test
 lazy val CdsIntegrationTest = config("it") extend Test
@@ -49,15 +44,14 @@ def forkedJvmPerTestConfig(tests: Seq[TestDefinition], packages: String*): Seq[G
   } toSeq
 
 lazy val testAll = TaskKey[Unit]("test-all")
-lazy val allTest = Seq(testAll := (test in ComponentTest)
-  .dependsOn((test in CdsIntegrationTest).dependsOn(test in Test)))
+lazy val allTest = Seq(testAll := (ComponentTest / test)
+  .dependsOn((CdsIntegrationTest / test).dependsOn(Test / test)))
 
 
 lazy val microservice = (project in file("."))
   .enablePlugins(PlayScala)
   .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
   .enablePlugins(SbtDistributablesPlugin)
-  .enablePlugins(SbtArtifactory)
   .disablePlugins(sbt.plugins.JUnitXmlReportPlugin)
   .configs(testConfig: _*)
   .settings(
@@ -67,9 +61,9 @@ lazy val microservice = (project in file("."))
     componentTestSettings,
     playPublishingSettings,
     allTest,
-    scoverageSettings,
-    allResolvers
+    scoverageSettings
   )
+  .settings(scalacOptions ++= Seq("-P:silencer:pathFilters=routes", "-P:silencer:globalFilters=Unused import"))
   .settings(majorVersion := 0)
 
 def onPackageName(rootPackage: String): String => Boolean = {
@@ -79,26 +73,26 @@ def onPackageName(rootPackage: String): String => Boolean = {
 lazy val unitTestSettings =
   inConfig(Test)(Defaults.testTasks) ++
     Seq(
-      unmanagedSourceDirectories in Test := Seq((baseDirectory in Test).value / "test"),
+      Test / unmanagedSourceDirectories := Seq((Test / baseDirectory).value / "test"),
       addTestReportOption(Test, "test-reports")
     )
 
 lazy val integrationTestSettings =
   inConfig(CdsIntegrationTest)(Defaults.testTasks) ++
     Seq(
-      testOptions in CdsIntegrationTest := Seq(Tests.Filters(Seq(onPackageName("integration"), onPackageName("component")))),
-      fork in CdsIntegrationTest := false,
-      parallelExecution in CdsIntegrationTest := false,
+      CdsIntegrationTest / testOptions := Seq(Tests.Filters(Seq(onPackageName("integration"), onPackageName("component")))),
+      CdsIntegrationTest / fork  := false,
+      CdsIntegrationTest / parallelExecution := false,
       addTestReportOption(CdsIntegrationTest, "int-test-reports"),
-      testGrouping in CdsIntegrationTest := forkedJvmPerTestConfig((definedTests in Test).value, "integration", "component")
+      CdsIntegrationTest / testGrouping := forkedJvmPerTestConfig((Test / definedTests).value, "integration", "component")
     )
 
 lazy val componentTestSettings =
   inConfig(ComponentTest)(Defaults.testTasks) ++
     Seq(
-      testOptions in ComponentTest := Seq(Tests.Filter(onPackageName("component"))),
-      fork in ComponentTest := false,
-      parallelExecution in ComponentTest := false,
+      ComponentTest / testOptions := Seq(Tests.Filter(onPackageName("component"))),
+      ComponentTest / fork := false,
+      ComponentTest / parallelExecution := false,
       addTestReportOption(ComponentTest, "component-reports")
     )
 
@@ -115,19 +109,15 @@ lazy val playPublishingSettings: Seq[sbt.Setting[_]] = Seq(credentials += SbtCre
 
 lazy val scoverageSettings: Seq[Setting[_]] = Seq(
   coverageExcludedPackages := "<empty>;.*(Reverse|Routes).*;com.kenshoo.play.metrics.*;.*definition.*;prod.*;testOnlyDoNotUseInAppConf.*;app.*;uk.gov.hmrc.BuildInfo;.*connector.*;.*config.*",
-  coverageMinimum := 96,
+  coverageMinimumStmtTotal := 96,
   coverageFailOnMinimum := true,
   coverageHighlighting := true,
-  parallelExecution in Test := false
+  Test / parallelExecution := false
 )
 
 scalastyleConfig := baseDirectory.value / "project" / "scalastyle-config.xml"
 
-val compileDependencies = Seq(customsApiCommon, apiCommon)
-
-val testDependencies = Seq(hmrcTest, scalaTest, scalaTestPlusPlay, wireMock, mockito, customsApiCommonTests)
-
-unmanagedResourceDirectories in Compile += baseDirectory.value / "public"
+Compile / unmanagedResourceDirectories += baseDirectory.value / "public"
 
 libraryDependencies ++= compileDependencies ++ testDependencies
 

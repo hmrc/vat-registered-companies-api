@@ -3,21 +3,25 @@ import sbt._
 
 object AppDependencies {
 
-  private val customsApiCommonVersion = "1.52.0"
-  private val hmrcTestVersion = "3.9.0-play-26"
-  private val scalaTestVersion = "3.0.8"
+  private val customsApiCommonVersion = "1.56.0"
+  private val hmrcTestVersion = "3.10.0-play-26"
+  private val scalaTestVersion = "3.0.9"
   private val mockitoVersion = "3.0.0"
-  private val scalaTestPlusPlayVersion = "3.1.2"
+  private val scalaTestPlusPlayVersion = "3.1.3"
   private val wireMockVersion = "2.23.2"
   private val testScope = "test,it"
 
-  val customsApiCommon = "uk.gov.hmrc" %% "customs-api-common" % customsApiCommonVersion withSources()
-  val apiCommon = "uk.gov.hmrc" %% "play-hmrc-api" % "5.3.0-play-26"
-  val hmrcTest = "uk.gov.hmrc" %% "hmrctest" % hmrcTestVersion % testScope
-  val scalaTest = "org.scalatest" %% "scalatest" % scalaTestVersion % testScope
-  val mockito = "org.mockito" % "mockito-core" % mockitoVersion % testScope
-  val playTest = "com.typesafe.play" %% "play-test" % PlayVersion.current % testScope
-  val scalaTestPlusPlay = "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlusPlayVersion % testScope
-  val wireMock = "com.github.tomakehurst" % "wiremock-jre8" % wireMockVersion % testScope
-  val customsApiCommonTests = "uk.gov.hmrc" %% "customs-api-common" % customsApiCommonVersion % testScope classifier "tests"
+  val compile = Seq("uk.gov.hmrc" %% "customs-api-common" % customsApiCommonVersion withSources(),
+    "uk.gov.hmrc" %% "play-hmrc-api" % "6.4.0-play-26",
+    compilerPlugin("com.github.ghik" % "silencer-plugin" % "1.7.5" cross CrossVersion.full),
+    "com.github.ghik" % "silencer-lib" % "1.7.5" % Provided cross CrossVersion.full)
+
+  val test = Seq("uk.gov.hmrc" %% "hmrctest" % hmrcTestVersion % testScope,
+    "org.scalatest" %% "scalatest" % scalaTestVersion % testScope,
+    "org.mockito" % "mockito-core" % mockitoVersion % testScope,
+    "com.typesafe.play" %% "play-test" % PlayVersion.current % testScope,
+    "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlusPlayVersion % testScope,
+    "com.github.tomakehurst" % "wiremock-jre8" % wireMockVersion % testScope,
+    "uk.gov.hmrc"             %% "bootstrap-play-26"        % "4.0.0"                 % Test classifier "tests",
+  "uk.gov.hmrc" %% "customs-api-common" % customsApiCommonVersion % testScope classifier "tests")
 }

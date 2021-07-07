@@ -17,12 +17,10 @@
 package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
 import java.time.{ZoneId, ZonedDateTime}
-
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatest.{Matchers, OptionValues, WordSpec}
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.http.Status
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
@@ -39,13 +37,13 @@ import scala.concurrent.Future
 
 class VatRegCoLookupControllerSpec extends WordSpec
   with Matchers
-  with GuiceOneAppPerSuite
   with MockitoSugar
   with OptionValues
 {
 
   val mockVatRegisteredCompaniesConnector: VatRegisteredCompaniesConnector = mock[VatRegisteredCompaniesConnector]
   val mockAuditConnector: AuditConnector = mock[AuditConnector]
+
   val cc = play.api.test.Helpers.stubControllerComponents()
   private val mockLogger = new VRCLLogger(mock[ServicesConfig])
   val controller = new VatRegCoLookupController(mockVatRegisteredCompaniesConnector, mockAuditConnector, cc, mockLogger)
