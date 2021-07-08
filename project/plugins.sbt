@@ -6,7 +6,7 @@ resolvers += Resolver.jcenterRepo
 
 addSbtPlugin("com.github.sbt" % "sbt-release" % "1.0.15")
 
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.23")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.7.6")
 
 addSbtPlugin("uk.gov.hmrc" % "sbt-settings" % "4.8.0")
 
