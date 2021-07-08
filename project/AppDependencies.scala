@@ -6,9 +6,9 @@ object AppDependencies {
   private val customsApiCommonVersion = "1.56.0"
   private val hmrcTestVersion = "3.10.0-play-26"
   private val scalaTestVersion = "3.0.9"
-  private val mockitoVersion = "3.0.0"
-  private val scalaTestPlusPlayVersion = "3.1.3"
-  private val wireMockVersion = "2.23.2"
+  private val mockitoVersion = "3.11.2"
+  private val scalaTestPlusPlayVersion = "4.0.3"
+  private val wireMockVersion = "2.28.0"
   private val testScope = "test,it"
 
   val compile = Seq("uk.gov.hmrc" %% "customs-api-common" % customsApiCommonVersion withSources(),
@@ -22,6 +22,5 @@ object AppDependencies {
     "com.typesafe.play" %% "play-test" % PlayVersion.current % testScope,
     "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlusPlayVersion % testScope,
     "com.github.tomakehurst" % "wiremock-jre8" % wireMockVersion % testScope,
-    "uk.gov.hmrc"             %% "bootstrap-play-26"        % "4.0.0"                 % Test classifier "tests",
-  "uk.gov.hmrc" %% "customs-api-common" % customsApiCommonVersion % testScope classifier "tests")
+    "uk.gov.hmrc" %% "customs-api-common" % customsApiCommonVersion % testScope classifier "tests")
 }

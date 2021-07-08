@@ -43,7 +43,6 @@ class VatRegCoLookupControllerSpec extends WordSpec
 
   val mockVatRegisteredCompaniesConnector: VatRegisteredCompaniesConnector = mock[VatRegisteredCompaniesConnector]
   val mockAuditConnector: AuditConnector = mock[AuditConnector]
-
   val cc = play.api.test.Helpers.stubControllerComponents()
   private val mockLogger = new VRCLLogger(mock[ServicesConfig])
   val controller = new VatRegCoLookupController(mockVatRegisteredCompaniesConnector, mockAuditConnector, cc, mockLogger)
