@@ -7,7 +7,7 @@ object AppDependencies {
   private val hmrcTestVersion = "3.10.0-play-26"
   private val scalaTestVersion = "3.0.9"
   private val mockitoVersion = "3.11.2"
-  private val scalaTestPlusPlayVersion = "4.0.3"
+  private val scalaTestPlusPlayVersion = "3.1.3"
   private val wireMockVersion = "2.28.0"
   private val testScope = "test,it"
 
