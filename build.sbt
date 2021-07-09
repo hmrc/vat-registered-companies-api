@@ -81,6 +81,7 @@ lazy val integrationTestSettings =
   inConfig(CdsIntegrationTest)(Defaults.testTasks) ++
     Seq(
       CdsIntegrationTest / testOptions := Seq(Tests.Filters(Seq(onPackageName("integration"), onPackageName("component")))),
+      CdsIntegrationTest / fork.withRank(KeyRanks.Invisible)  := false,
       CdsIntegrationTest / parallelExecution := false,
       addTestReportOption(CdsIntegrationTest, "int-test-reports"),
       CdsIntegrationTest / testGrouping := forkedJvmPerTestConfig((Test / definedTests).value, "integration", "component")
