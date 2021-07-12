@@ -17,7 +17,6 @@
 package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
 import java.time.{ZoneId, ZonedDateTime}
-
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
