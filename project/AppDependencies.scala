@@ -7,7 +7,7 @@ object AppDependencies {
   private val scalaTestVersion = "3.2.9"
   private val mockitoVersion = "3.11.2"
   private val scalaTestPlusPlayVersion = "5.0.0"
-  private val wireMockVersion = "2.28.0"
+  private val wireMockVersion = "2.29.0"
   private val testScope = "test,it"
 
   val compile = Seq("uk.gov.hmrc" %% "customs-api-common" % customsApiCommonVersion withSources(),

@@ -19,7 +19,6 @@ import sbt.Keys._
 import sbt.Tests.{Group, SubProcess}
 import sbt.{Resolver, _}
 import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, scalaSettings, targetJvm}
-import uk.gov.hmrc.PublishingSettings._
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.gitstamp.GitStampPlugin._
 import sbt.dsl.LinterLevel.Ignore
@@ -28,7 +27,7 @@ name := "vat-registered-companies-api"
 PlayKeys.playDefaultPort := 8733
 
 targetJvm := "jvm-1.8"
-scalaVersion := "2.12.13"
+scalaVersion := "2.12.14"
 
 Seq( gitStampSettings: _* )
 
@@ -49,9 +48,7 @@ lazy val allTest = Seq(testAll := (ComponentTest / test)
 
 
 lazy val microservice = (project in file("."))
-  .enablePlugins(PlayScala)
-  .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
-  .enablePlugins(SbtDistributablesPlugin)
+  .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin)
   .disablePlugins(sbt.plugins.JUnitXmlReportPlugin)
   .configs(testConfig: _*)
   .settings(
@@ -59,7 +56,6 @@ lazy val microservice = (project in file("."))
     unitTestSettings,
     integrationTestSettings,
     componentTestSettings,
-    playPublishingSettings,
     allTest,
     scoverageSettings
   )
@@ -102,10 +98,6 @@ lazy val commonSettings: Seq[Setting[_]] =
     publishingSettings ++
     defaultSettings() ++
     gitStampSettings
-
-lazy val playPublishingSettings: Seq[sbt.Setting[_]] = Seq(credentials += SbtCredentials) ++
-  Seq(credentials += SbtCredentials) ++
-  publishAllArtefacts
 
 lazy val scoverageSettings: Seq[Setting[_]] = Seq(
   coverageExcludedPackages := "<empty>;.*(Reverse|Routes).*;com.kenshoo.play.metrics.*;.*definition.*;prod.*;testOnlyDoNotUseInAppConf.*;app.*;uk.gov.hmrc.BuildInfo;.*connector.*;.*config.*",
