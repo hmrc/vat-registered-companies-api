@@ -20,7 +20,9 @@ import java.time.{ZoneId, ZonedDateTime}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
-import org.scalatest.{Matchers, OptionValues, WordSpec}
+import org.scalatest.OptionValues
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.http.Status
 import play.api.libs.json.Json
@@ -36,9 +38,8 @@ import uk.gov.hmrc.vatregisteredcompaniesapi.models._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class VatRegCoLookupControllerSpec extends WordSpec
+class VatRegCoLookupControllerSpec extends AnyWordSpec
   with Matchers
-  with GuiceOneAppPerSuite
   with MockitoSugar
   with OptionValues
 {
