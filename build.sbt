@@ -17,11 +17,10 @@
 import AppDependencies.{compile => compileDependencies, test => testDependencies}
 import sbt.Keys._
 import sbt.Tests.{Group, SubProcess}
-import sbt.{Resolver, _}
+import sbt._
 import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, scalaSettings, targetJvm}
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.gitstamp.GitStampPlugin._
-import sbt.dsl.LinterLevel.Ignore
+import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 
 name := "vat-registered-companies-api"
 PlayKeys.playDefaultPort := 8733
