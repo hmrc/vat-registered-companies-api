@@ -1,0 +1,326 @@
+openapi: 3.0.0
+info:
+  title: Check a UK VAT number
+  description: "This API enables your application to:\n\n* check if a UK VAT number is registered\n* view the name and address of the business that the UK VAT number is registered to\n* get a reference number that you can use to prove you checked a UK VAT number\n\nThe Check a UK VAT Number API works in two modes:\n\n1. Simple unverified check, which does not provide a reference number \n2. Verified check, which provides a reference number\nWhen an API changes in a way that is backwards-incompatible, we increase the version number of the API. \nSee our [reference guide](/api-documentation/docs/reference-guide#versioning) for more on\nversioning.\nWe use standard HTTP status codes to show whether an API request succeeded or not. They are usually in the range:\n* 200 to 299 if it succeeded, including code 202 if it was accepted by an API that needs to wait for further action\n* 400 to 499 if it failed because of a client error by your application\n* 500 to 599 if it failed because of an error on our server\n\nErrors specific to each API are shown in the Endpoints section, under Response. \nSee our [reference guide](/api-documentation/docs/reference-guide#errors) for more on errors.\nYou can use the sandbox environment to [test this API](https://developer.service.hmrc.gov.uk/api-documentation/docs/testing).\n\n[Access a set of mock VAT registration numbers](https://github.com/hmrc/vat-registered-companies-api/tree/master/public/api/conf/1.0/test-data) to use when testing in the sandbox environment."
+  contact: {}
+  version: '1.0'
+servers:
+  - url: https://api.service.hmrc.gov.uk/
+    variables: {}
+paths:
+  /organisations/vat/check-vat-number/lookup/{targetVrn}:
+    get:
+      tags:
+        - organisations
+      summary: Get a VAT registration
+      description: Allows retrieval of name and address of a VAT registered company
+      operationId: GetaVATregistration
+      parameters:
+        - name: targetVrn
+          in: path
+          description: UK VAT registration number you wish to check. <br> A 9-digit or 12-digit number.
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '123456789'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/OrganisationsVatCheckVatNumberLookupresponse'
+                  - example:
+                      target:
+                        name: Credite Sberger Donal Inc.
+                        vatNumber: '553557881'
+                        address:
+                          line1: 131B Barton Hamlet
+                          postcode: SW97 5CK
+                          countryCode: GB
+                      processingDate: 2019-01-31T12:43:17+00:00
+              example:
+                target:
+                  name: Credite Sberger Donal Inc.
+                  vatNumber: '553557881'
+                  address:
+                    line1: 131B Barton Hamlet
+                    postcode: SW97 5CK
+                    countryCode: GB
+                processingDate: 2019-01-31T12:43:17+00:00
+        '400':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Error1'
+                  - description: Invalid request
+                    example:
+                      code: INVALID_REQUEST
+                      message: Invalid targetVrn - Vrn parameters should be 9 or 12 digits
+              example:
+                code: INVALID_REQUEST
+                message: Invalid targetVrn - Vrn parameters should be 9 or 12 digits
+        '404':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Error1'
+                  - description: Not found
+                    example:
+                      code: NOT_FOUND
+                      message: targetVrn does not match a registered company
+              example:
+                code: NOT_FOUND
+                message: targetVrn does not match a registered company
+        '500':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Error1'
+                  - description: Internal server error
+                    example:
+                      code: INTERNAL_SERVER_ERROR
+                      message: Unknown error
+              example:
+                code: INTERNAL_SERVER_ERROR
+                message: Unknown error
+      deprecated: false
+  /organisations/vat/check-vat-number/lookup/{targetVrn}/{requesterVrn}:
+    get:
+      tags:
+        - organisations
+      summary: Get a VAT registration with a reference number
+      description: Retrieves the name and address of a UK VAT-registered business, if the business exists.
+      operationId: GetaVATregistrationwithareferencenumber
+      parameters:
+        - name: targetVrn
+          in: path
+          description: UK VAT registration number you want to check. <br> A 9-digit or 12-digit number.
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '123456789'
+        - name: requesterVrn
+          in: path
+          description: Your VAT registration number. <br> A 9-digit or 12-digit number.
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '123456789'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/OrganisationsVatCheckVatNumberLookupresponse1'
+                  - example:
+                      target:
+                        name: Credite Sberger Donal Inc.
+                        vatNumber: '553557881'
+                        address:
+                          line1: 131B Barton Hamlet
+                          postcode: SW97 5CK
+                          countryCode: GB
+                      requester: '146295999727'
+                      consultationNumber: ypAeKRPlW
+                      processingDate: 2019-01-31T12:53:05+00:00
+              example:
+                target:
+                  name: Credite Sberger Donal Inc.
+                  vatNumber: '553557881'
+                  address:
+                    line1: 131B Barton Hamlet
+                    postcode: SW97 5CK
+                    countryCode: GB
+                requester: '146295999727'
+                consultationNumber: ypAeKRPlW
+                processingDate: 2019-01-31T12:53:05+00:00
+        '400':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Error1'
+                  - description: Invalid request
+                    example:
+                      code: INVALID_REQUEST
+                      message: Invalid requesterVrn - Vrn parameters should be 9 or 12 digits
+              example:
+                code: INVALID_REQUEST
+                message: Invalid requesterVrn - Vrn parameters should be 9 or 12 digits
+        '403':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Error1'
+                  - description: Invalid request
+                    example:
+                      code: INVALID_REQUEST
+                      message: requesterVrn does not match a registered company
+              example:
+                code: INVALID_REQUEST
+                message: requesterVrn does not match a registered company
+        '404':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Error1'
+                  - description: Not found
+                    example:
+                      code: NOT_FOUND
+                      message: targetVrn does not match a registered company
+              example:
+                code: NOT_FOUND
+                message: targetVrn does not match a registered company
+        '500':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Error1'
+                  - description: Internal server error
+                    example:
+                      code: INTERNAL_SERVER_ERROR
+                      message: Unknown error
+              example:
+                code: INTERNAL_SERVER_ERROR
+                message: Unknown error
+      deprecated: false
+components:
+  schemas:
+    errorResponse:
+      title: errorResponse
+      required:
+        - code
+      type: object
+      properties:
+        code:
+          type: string
+    Address:
+      title: Address
+      required:
+        - line1
+        - postcode
+        - countryCode
+      type: object
+      properties:
+        line1:
+          type: string
+        postcode:
+          type: string
+        countryCode:
+          type: string
+      example:
+        line1: 131B Barton Hamlet
+        postcode: SW97 5CK
+        countryCode: GB
+    Error1:
+      title: Error1
+      required:
+        - message
+        - code
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    OrganisationsVatCheckVatNumberLookupresponse:
+      title: OrganisationsVatCheckVatNumberLookupresponse
+      required:
+        - target
+        - processingDate
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/Target'
+        processingDate:
+          type: string
+      example:
+        target:
+          name: Credite Sberger Donal Inc.
+          vatNumber: '553557881'
+          address:
+            line1: 131B Barton Hamlet
+            postcode: SW97 5CK
+            countryCode: GB
+        processingDate: 2019-01-31T12:43:17+00:00
+    OrganisationsVatCheckVatNumberLookupresponse1:
+      title: OrganisationsVatCheckVatNumberLookupresponse1
+      required:
+        - target
+        - requester
+        - consultationNumber
+        - processingDate
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/Target'
+        requester:
+          type: string
+        consultationNumber:
+          type: string
+        processingDate:
+          type: string
+      example:
+        target:
+          name: Credite Sberger Donal Inc.
+          vatNumber: '553557881'
+          address:
+            line1: 131B Barton Hamlet
+            postcode: SW97 5CK
+            countryCode: GB
+        requester: '146295999727'
+        consultationNumber: ypAeKRPlW
+        processingDate: 2019-01-31T12:53:05+00:00
+    Target:
+      title: Target
+      required:
+        - name
+        - vatNumber
+        - address
+      type: object
+      properties:
+        name:
+          type: string
+        vatNumber:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+      example:
+        name: Credite Sberger Donal Inc.
+        vatNumber: '553557881'
+        address:
+          line1: 131B Barton Hamlet
+          postcode: SW97 5CK
+          countryCode: GB
+tags:
+  - name: organisations
+    description: ''
