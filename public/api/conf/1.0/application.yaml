@@ -1,7 +1,37 @@
 openapi: 3.0.0
 info:
   title: Check a UK VAT number
-  description: "This API enables your application to:\n\n* check if a UK VAT number is registered\n* view the name and address of the business that the UK VAT number is registered to\n* get a reference number that you can use to prove you checked a UK VAT number\n\nThe Check a UK VAT Number API works in two modes:\n\n1. Simple unverified check, which does not provide a reference number \n2. Verified check, which provides a reference number\nWhen an API changes in a way that is backwards-incompatible, we increase the version number of the API. \nSee our [reference guide](/api-documentation/docs/reference-guide#versioning) for more on\nversioning.\nWe use standard HTTP status codes to show whether an API request succeeded or not. They are usually in the range:\n* 200 to 299 if it succeeded, including code 202 if it was accepted by an API that needs to wait for further action\n* 400 to 499 if it failed because of a client error by your application\n* 500 to 599 if it failed because of an error on our server\n\nErrors specific to each API are shown in the Endpoints section, under Response. \nSee our [reference guide](/api-documentation/docs/reference-guide#errors) for more on errors.\nYou can use the sandbox environment to [test this API](https://developer.service.hmrc.gov.uk/api-documentation/docs/testing).\n\n[Access a set of mock VAT registration numbers](https://github.com/hmrc/vat-registered-companies-api/tree/master/public/api/conf/1.0/test-data) to use when testing in the sandbox environment."
+  description: |
+    # Overview
+    This API enables your application to:
+
+    * check if a UK VAT number is registered
+    * view the name and address of the business that the UK VAT number is registered to
+    * get a reference number that you can use to prove you checked a UK VAT number
+
+    The Check a UK VAT Number API works in two modes:
+
+    1. Simple unverified check, which does not provide a reference number
+    2. Verified check, which provides a reference number
+
+    # Versioning
+    When an API changes in a way that is backwards-incompatible, we increase the version number of the API.
+    See our [reference guide](/api-documentation/docs/reference-guide#versioning) for more on
+    versioning.
+
+    # Errors
+    We use standard HTTP status codes to show whether an API request succeeded or not. They are usually in the range:
+    * 200 to 299 if it succeeded, including code 202 if it was accepted by an API that needs to wait for further action
+    * 400 to 499 if it failed because of a client error by your application
+    * 500 to 599 if it failed because of an error on our server
+
+    Errors specific to each API are shown in the Endpoints section, under Response.
+    See our [reference guide](/api-documentation/docs/reference-guide#errors) for more on errors.
+
+    # Testing
+    You can use the sandbox environment to [test this API](https://developer.service.hmrc.gov.uk/api-documentation/docs/testing).
+    [Access a set of mock VAT registration numbers](https://github.com/hmrc/vat-registered-companies-api/tree/master/public/api/conf/1.0/test-data) to use when testing in the sandbox environment.
+
   contact: {}
   version: '1.0'
 servers:
