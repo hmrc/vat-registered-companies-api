@@ -127,6 +127,8 @@ paths:
                 code: INTERNAL_SERVER_ERROR
                 message: Unknown error
       deprecated: false
+      security:
+        - {}
   /organisations/vat/check-vat-number/lookup/{targetVrn}/{requesterVrn}:
     get:
       tags:
@@ -243,6 +245,8 @@ paths:
                 code: INTERNAL_SERVER_ERROR
                 message: Unknown error
       deprecated: false
+      security:
+        - {}
 components:
   schemas:
     errorResponse:
