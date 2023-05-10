@@ -26,7 +26,7 @@ name := "vat-registered-companies-api"
 PlayKeys.playDefaultPort := 8733
 
 targetJvm := "jvm-1.8"
-scalaVersion := "2.12.14"
+scalaVersion := "2.13.8"
 
 Seq( gitStampSettings: _* )
 
