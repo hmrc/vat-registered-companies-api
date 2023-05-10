@@ -58,7 +58,6 @@ lazy val microservice = (project in file("."))
     allTest,
     scoverageSettings
   )
-  .settings(scalacOptions ++= Seq("-P:silencer:pathFilters=routes", "-P:silencer:globalFilters=Unused import"))
   .settings(majorVersion := 0)
 
 def onPackageName(rootPackage: String): String => Boolean = {

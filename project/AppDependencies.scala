@@ -6,10 +6,8 @@ object AppDependencies {
   private val testScope = "test,it"
 
   val compile = Seq(
-    "uk.gov.hmrc"                                %% "customs-api-common" % "1.57.0" withSources(),
-    "uk.gov.hmrc"                                %% "play-hmrc-api"      % "7.0.0-play-28",
-    compilerPlugin("com.github.ghik" %  "silencer-plugin"    % "1.7.11" cross CrossVersion.full),
-    "com.github.ghik"                            %  "silencer-lib"       % "1.7.11" % Provided cross CrossVersion.full
+    "uk.gov.hmrc"                                %% "customs-api-common" % "1.58.0",
+    "uk.gov.hmrc"                                %% "play-hmrc-api"      % "7.2.0-play-28"
   )
 
   val test = Seq(
