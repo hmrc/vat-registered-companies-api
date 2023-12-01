@@ -111,3 +111,4 @@ Compile / unmanagedResourceDirectories += baseDirectory.value / "public"
 
 libraryDependencies ++= compileDependencies ++ testDependencies
 
+libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
