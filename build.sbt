@@ -25,8 +25,8 @@ import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 name := "vat-registered-companies-api"
 PlayKeys.playDefaultPort := 8733
 
-targetJvm := "jvm-1.8"
-scalaVersion := "2.13.8"
+targetJvm := "jvm-11"
+scalaVersion := "2.13.12"
 
 Seq( gitStampSettings: _* )
 
