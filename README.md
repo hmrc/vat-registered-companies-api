@@ -3,7 +3,7 @@
 
 This is the vat-registered-companies-api repo. It runs on port 8733.
 
-It has been upgraded to Java 11, sbt 1.9.7, Scala 2.12.13, Play 3.0.
+It has been upgraded to Java 11, sbt 1.9.7, Scala 2.13.12, Play 3.0.
 
 ### License
 
