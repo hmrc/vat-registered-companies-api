@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customs.api.common.util
+package uk.gov.hmrc.vatregisteredcompaniesapi.util
 
 import org.apache.pekko.stream.Materializer
 import org.apache.pekko.util.ByteString

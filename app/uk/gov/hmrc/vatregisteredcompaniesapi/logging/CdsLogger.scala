@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customs.api.common.logging
+package uk.gov.hmrc.vatregisteredcompaniesapi.logging
 
 import com.google.inject.Inject
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig

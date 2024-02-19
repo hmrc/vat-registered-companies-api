@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customs.api.common.logging
+package uk.gov.hmrc.vatregisteredcompaniesapi.logging
 
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
-import uk.gov.hmrc.customs.api.common.util.UnitSpec
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.vatregisteredcompaniesapi.logging.CdsLogger
+import uk.gov.hmrc.vatregisteredcompaniesapi.util.UnitSpec
 
 import java.io.{ByteArrayOutputStream, PrintStream}
 import scala.io.Source

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customs.api.common.controllers
+package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
 import controllers.Assets
 import play.api.mvc.{Action, AnyContent, ControllerComponents}

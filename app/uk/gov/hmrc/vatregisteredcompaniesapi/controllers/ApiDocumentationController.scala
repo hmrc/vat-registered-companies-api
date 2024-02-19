@@ -20,7 +20,6 @@ import controllers.Assets
 import javax.inject.{Inject, Singleton}
 import play.api.http.{ContentTypes, MimeTypes}
 import play.api.mvc.{Action, AnyContent, Codec, ControllerComponents}
-import uk.gov.hmrc.customs.api.common.controllers.DocumentationController
 import uk.gov.hmrc.vatregisteredcompaniesapi.config.AppContext
 import views.txt
 

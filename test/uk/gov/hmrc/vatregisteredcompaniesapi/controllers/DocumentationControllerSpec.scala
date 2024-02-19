@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customs.api.common.controllers
+package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
 import org.scalatest.concurrent.Eventually
-import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
-import play.api.inject.guice.{GuiceApplicationBuilder, GuiceableModule}
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.customs.api.common.util.UnitSpec
-import uk.gov.hmrc.play.audit.AuditModule
-import uk.gov.hmrc.play.bootstrap.backend.BackendModule
+import uk.gov.hmrc.vatregisteredcompaniesapi.util.UnitSpec
 
 import java.io.FileNotFoundException
 import scala.concurrent.Future
