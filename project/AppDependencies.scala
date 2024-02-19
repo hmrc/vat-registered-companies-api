@@ -5,8 +5,8 @@ object AppDependencies {
   private val playSuffix = "-play-30"
 
   val compile = Seq(
-  "org.typelevel" %% "cats-core" % "2.9.0",
-    "uk.gov.hmrc" %% s"play-hmrc-api$playSuffix" % "8.0.0"
+    "org.typelevel" %% "cats-core"                 % "2.9.0",
+    "uk.gov.hmrc"   %% s"play-hmrc-api$playSuffix" % "8.0.0"
   )
 
   val test = Seq(
