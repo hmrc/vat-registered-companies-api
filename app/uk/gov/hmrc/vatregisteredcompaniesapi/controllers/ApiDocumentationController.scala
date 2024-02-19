@@ -32,7 +32,7 @@ class ApiDocumentationController @Inject()
   cc: ControllerComponents,
   appContext: AppContext
 ) extends DocumentationController (assets, cc) {
-
+// TODO: Remove need for DocumentationController
   def definition(): Action[AnyContent] = Action.async {
     Future.successful(
       Ok(

@@ -43,6 +43,7 @@ class DocumentationControllerSpec extends UnitSpec
     configure(
       Map(
         "play.http.router" -> "definition.Routes",
+//        TODO: REMOVE REFERENCE & ALSO ARE ALL RESOURCES FILES NEEDED
         "application.logger.name" -> "customs-api-common",
         "appName" -> "customs-declarations",
         "appUrl" -> "http://customs-wco-declaration.service",
