@@ -22,7 +22,7 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import javax.inject.Singleton
 
 @Singleton
-class CdsLogger @Inject()(serviceConfig: ServicesConfig) {
+class VrcLogger @Inject()(serviceConfig: ServicesConfig) {
 
   private lazy val loggerName: String = serviceConfig.getString("application.logger.name")
   lazy val logger = play.api.Logger(loggerName)

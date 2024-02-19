@@ -20,17 +20,17 @@ import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.vatregisteredcompaniesapi.logging.CdsLogger
+import uk.gov.hmrc.vatregisteredcompaniesapi.logging.VrcLogger
 import uk.gov.hmrc.vatregisteredcompaniesapi.util.UnitSpec
 
 import java.io.{ByteArrayOutputStream, PrintStream}
 import scala.io.Source
 
-class CdsLoggerSpec extends UnitSpec with MockitoSugar {
+class VrcLoggerSpec extends UnitSpec with MockitoSugar {
 
   trait Setup {
     private val mockServiceConfig = mock[ServicesConfig]
-    lazy val vrcLogger = new CdsLogger(mockServiceConfig)
+    lazy val vrcLogger = new VrcLogger(mockServiceConfig)
 
     val vrcLoggerName = "vat-registered-companies-api"
 
@@ -58,7 +58,7 @@ class CdsLoggerSpec extends UnitSpec with MockitoSugar {
     }
   }
 
-  "CdsLogger" should {
+  "VrcLogger" should {
     "log debug" in new Setup {
       val msg = "debug"
 

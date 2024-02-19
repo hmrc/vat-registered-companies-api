@@ -24,7 +24,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import uk.gov.hmrc.vatregisteredcompaniesapi.connectors.VatRegisteredCompaniesConnector
-import uk.gov.hmrc.vatregisteredcompaniesapi.logging.CdsLogger
+import uk.gov.hmrc.vatregisteredcompaniesapi.logging.VrcLogger
 import uk.gov.hmrc.vatregisteredcompaniesapi.models.{Lookup, LookupRequestError, LookupResponse, VatNumber}
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -33,7 +33,7 @@ class VatRegCoLookupController @Inject()(
   vatRegisteredCompaniesConnector: VatRegisteredCompaniesConnector,
   auditConnector: AuditConnector,
   cc: ControllerComponents,
-  logger: CdsLogger
+  logger: VrcLogger
 )(implicit executionContext: ExecutionContext) extends BackendController(cc) {
 
   def lookupVerified(target: VatNumber, requester: VatNumber): Action[AnyContent] =

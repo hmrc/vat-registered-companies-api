@@ -30,7 +30,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.vatregisteredcompaniesapi.connectors.VatRegisteredCompaniesConnector
-import uk.gov.hmrc.vatregisteredcompaniesapi.logging.CdsLogger
+import uk.gov.hmrc.vatregisteredcompaniesapi.logging.VrcLogger
 import uk.gov.hmrc.vatregisteredcompaniesapi.models._
 
 import java.time.{ZoneId, ZonedDateTime}
@@ -160,7 +160,7 @@ class VatRegCoLookupControllerSpec extends AnyWordSpec
 
 }
 
-class VRCLLogger(servicesConfig: ServicesConfig) extends CdsLogger(servicesConfig) {
+class VRCLLogger(servicesConfig: ServicesConfig) extends VrcLogger(servicesConfig) {
   override lazy val logger = play.api.Logger("VRCLLogger")
 
   override def debug(s: => String): Unit =
