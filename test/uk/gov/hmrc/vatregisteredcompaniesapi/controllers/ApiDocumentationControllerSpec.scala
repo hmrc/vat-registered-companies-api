@@ -36,7 +36,7 @@ class ApiDocumentationControllerSpec extends UnitSpec
   private implicit lazy val materializer = app.materializer
 
   private val definitionJsonContent = getResourceFileContent("/public/api/definition.json")
-  private val applicationRamlContent = getResourceFileContent("/public/api/conf/1.0/application.raml")
+  private val applicationRamlContent = getResourceFileContent("/public/api/conf/1.0/example.raml")
 
   override implicit lazy val app: Application = GuiceApplicationBuilder(
     modules = Seq()).
@@ -54,7 +54,7 @@ class ApiDocumentationControllerSpec extends UnitSpec
   "DocumentationController" should {
     "serve definition.json" in assertRoutedContent("/api/definition", definitionJsonContent)
 
-    "serve application.raml" in assertRoutedContent("/api/conf/1.0/application.raml", applicationRamlContent)
+    "serve example.raml" in assertRoutedContent("/api/conf/1.0/example.raml", applicationRamlContent)
   }
 
   private def assertRoutedContent(uri: String, expectedContent: String) = {
