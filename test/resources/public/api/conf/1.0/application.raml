@@ -1,7 +1,7 @@
 #%RAML 1.0
 ---
 
-title: Customs Single UCC Compliant Declaration
+title: Example Application Raml FILE
 version: 1.0
 protocols: [ HTTPS ]
 baseUri: https://api.service.hmrc.gov.uk/
@@ -21,11 +21,11 @@ documentation:
   - title: Errors
     content: !include https://api-documentation/assets/common/docs/errors.md
 
-/customs-wco:
+/get-data:
   /declaration:
       post:
-        displayName: UCC Compliant Declaration
-        description: Single UCC Compliant Declaration API integrated with an application-restricted service, using your `server_token`.
+        displayName: Get Data
+        description: This endpoint gets data
         headers:
           Accept:
             description: Specifies the version of the API that you want to call. See [versioning](/api-documentation/docs/reference-guide#versioning).
