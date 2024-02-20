@@ -30,7 +30,7 @@ import uk.gov.hmrc.vatregisteredcompaniesapi.util.UnitSpec
 import java.io.FileNotFoundException
 import scala.concurrent.Future
 
-class DocumentationControllerSpec extends UnitSpec
+class ApiDocumentationControllerSpec extends UnitSpec
   with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with MockitoSugar with GuiceOneAppPerSuite {
 
   private implicit lazy val materializer = app.materializer
@@ -42,11 +42,10 @@ class DocumentationControllerSpec extends UnitSpec
     modules = Seq()).
     configure(
       Map(
-        "play.http.router" -> "definition.Routes",
-//        TODO: REMOVE REFERENCE & ALSO ARE ALL RESOURCES FILES NEEDED
-        "application.logger.name" -> "customs-api-common",
-        "appName" -> "customs-declarations",
-        "appUrl" -> "http://customs-wco-declaration.service",
+        "play.http.router" -> "dynamicDefinition.Routes",
+        "application.logger.name" -> "vat-registered-companies-api",
+        "appName" -> "vat-registered-companies-api",
+        "appUrl" -> "https://vat-registered-companies-api.gov.uk",
         "auditing.enabled" -> false,
         "auditing.traceRequests" -> false
       )

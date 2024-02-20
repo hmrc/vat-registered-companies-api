@@ -1,20 +1,18 @@
 {
-  "scopes": [
-    {
-      "key": "write:customs-wco-declaration",
-      "name": "Access customs UCC declaration",
-      "description": "Customs UCC Declaration"
-    }
-  ],
+  "scopes":[],
   "api": {
-    "name": "Customs UCC Declaration",
-    "description": "Single UCC Compliant Declaration API",
-    "context": "customs-wco",
+    "name": "Check a UK VAT number",
+    "description": "Allows for retrieval VAT registered companies",
+    "context": "organisations/vat/check-vat-number",
+    "categories": ["VAT"],
     "versions": [
       {
         "version": "1.0",
         "status": "BETA",
-        "endpointsEnabled": true
+        "endpointsEnabled": true,
+        "access": {
+          "type": "PUBLIC"
+        }
       }
     ]
   }

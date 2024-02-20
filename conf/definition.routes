@@ -1,3 +1,0 @@
-GET        /api/definition                                       controllers.Assets.at(path="/public/api", file="definition.json")
-
-GET        /api/conf/:version/*file                              @uk.gov.hmrc.vatregisteredcompaniesapi.controllers.DocumentationController.conf(version, file)
