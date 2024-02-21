@@ -2,17 +2,15 @@ import sbt._
 
 object AppDependencies {
 
-  private val testScope = "test,it"
+  private val playSuffix = "-play-30"
 
   val compile = Seq(
-    "uk.gov.hmrc" %% "customs-api-common" % "1.60.0",
-    "uk.gov.hmrc" %% "play-hmrc-api"      % "7.2.0-play-28"
+    "org.typelevel" %% "cats-core"                 % "2.9.0",
+    "uk.gov.hmrc"   %% s"play-hmrc-api$playSuffix" % "8.0.0"
   )
 
   val test = Seq(
-    "com.vladsch.flexmark" % "flexmark-all" % "0.62.2" % testScope,
-    "uk.gov.hmrc"            %% "customs-api-common"     % "1.60.0" % testScope classifier "tests",
-    "uk.gov.hmrc"            %% "bootstrap-test-play-28" % "8.4.0"  % testScope,
-    "org.scalatestplus.play" %% "scalatestplus-play"     % "7.0.0"  % testScope
-  )
+    "uk.gov.hmrc"            %% s"bootstrap-test$playSuffix" % "8.4.0",
+    "org.scalatestplus.play" %% "scalatestplus-play"         % "7.0.0"
+  ).map(_ % "test, it")
 }

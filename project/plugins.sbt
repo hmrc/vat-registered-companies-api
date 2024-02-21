@@ -4,7 +4,7 @@ resolvers += Resolver.jcenterRepo
 resolvers += "Typesafe Releases" at "https://repo.typesafe.com/typesafe/releases/"
 
 addSbtPlugin("com.github.sbt"    %  "sbt-release"           % "1.1.0")
-addSbtPlugin("com.typesafe.play" %  "sbt-plugin"            % "2.8.19")
+addSbtPlugin("org.playframework" %  "sbt-plugin"            % "3.0.1")
 addSbtPlugin("uk.gov.hmrc"       %  "sbt-distributables"    % "2.5.0")
 addSbtPlugin("net.virtual-void"  %  "sbt-dependency-graph"  % "0.10.0-RC1")
 addSbtPlugin("org.scoverage"     %  "sbt-scoverage"         % "2.0.9")
