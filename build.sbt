@@ -47,7 +47,7 @@ lazy val allTest = Seq(testAll := (ComponentTest / test)
 
 
 lazy val microservice = (project in file("."))
-  .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin)
+  .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(sbt.plugins.JUnitXmlReportPlugin)
   .configs(testConfig: _*)
   .settings(
