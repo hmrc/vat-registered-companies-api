@@ -17,10 +17,10 @@
 import AppDependencies.{compile => compileDependencies, test => testDependencies}
 import sbt.Keys._
 import sbt.Tests.{Group, SubProcess}
-import sbt._
+import sbt.*
 import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, scalaSettings, targetJvm}
-import uk.gov.hmrc.gitstamp.GitStampPlugin._
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
+import uk.gov.hmrc.gitstamp.GitStampPlugin.*
+import sbt.dsl.LinterLevel.Ignore
 
 name := "vat-registered-companies-api"
 PlayKeys.playDefaultPort := 8733
@@ -59,6 +59,10 @@ lazy val microservice = (project in file("."))
     scoverageSettings
   )
   .settings(majorVersion := 0)
+  .settings(scalacOptions ++= Seq(
+    "-Wconf:src=routes/.*:s",
+    "-Wconf:src=views/.*txt.*&cat=unused-imports:silent"
+  ))
 
 def onPackageName(rootPackage: String): String => Boolean = {
   testName => testName startsWith rootPackage
@@ -93,7 +97,6 @@ lazy val componentTestSettings =
 
 lazy val commonSettings: Seq[Setting[_]] =
   scalaSettings ++
-    publishingSettings ++
     defaultSettings() ++
     gitStampSettings
 

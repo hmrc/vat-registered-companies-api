@@ -38,7 +38,7 @@ class ApiDocumentationController @Inject()
   def conf(version: String, file: String): Action[AnyContent] = {
     assets.at(s"/public/api/conf/$version", file)
   }
-  def definition(): Action[AnyContent] = Action.async {
+  def definition: Action[AnyContent] = Action.async {
     Future.successful(
       Ok(
         txt.definition(
