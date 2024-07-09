@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
+import org.apache.pekko.stream.Materializer
 import org.scalatest.concurrent.Eventually
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
 import org.scalatestplus.mockito.MockitoSugar
@@ -33,7 +34,7 @@ import scala.concurrent.Future
 class ApiDocumentationControllerSpec extends UnitSpec
   with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with MockitoSugar with GuiceOneAppPerSuite {
 
-  private implicit lazy val materializer = app.materializer
+  private implicit lazy val materializer: Materializer = app.materializer
 
   private val definitionJsonContent = getResourceFileContent("/public/api/definition.json")
   private val applicationRamlContent = getResourceFileContent("/public/api/conf/1.0/example.raml")
