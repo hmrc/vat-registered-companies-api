@@ -13,14 +13,6 @@
         "access": {
           "type": "PUBLIC"
         }
-      },
-      {
-        "version": "2.0",
-        "status": "BETA",
-        "endpointsEnabled": false,
-        "access": {
-          "type": "PUBLIC"
-        }
       }
     ]
   }
