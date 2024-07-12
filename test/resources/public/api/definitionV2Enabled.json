@@ -1,11 +1,9 @@
-@import play.api.libs.json.Json
-@(apiContext: String, whitelistedApplicationIds: Seq[String])
 {
   "scopes":[],
   "api": {
     "name": "Check a UK VAT number",
     "description": "Allows for retrieval VAT registered companies",
-    "context": "@apiContext",
+    "context": "organisations/vat/check-vat-number",
     "categories": ["VAT"],
     "versions": [
       {

@@ -39,12 +39,20 @@ class ApiDocumentationController @Inject()
     assets.at(s"/public/api/conf/$version", file)
   }
   def definition: Action[AnyContent] = Action.async {
+    val definition = if(appContext.v2Enabled) {
+      txt.definition(
+        appContext.apiContext,
+        appContext.whiteListedAppIds.getOrElse(Seq.empty[String])
+      )
+    } else {
+      txt.definitionV1Only(
+        appContext.apiContext,
+        appContext.whiteListedAppIds.getOrElse(Seq.empty[String])
+      )
+    }
     Future.successful(
       Ok(
-        txt.definition(
-          appContext.apiContext,
-          appContext.whiteListedAppIds.getOrElse(Seq.empty[String])
-        )
+        definition
       ).as(ContentTypes.withCharset(MimeTypes.JSON)(Codec.utf_8)))
   }
 }

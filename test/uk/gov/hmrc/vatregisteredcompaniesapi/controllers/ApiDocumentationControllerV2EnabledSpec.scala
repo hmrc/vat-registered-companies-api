@@ -31,12 +31,12 @@ import uk.gov.hmrc.vatregisteredcompaniesapi.util.UnitSpec
 import java.io.FileNotFoundException
 import scala.concurrent.Future
 
-class ApiDocumentationControllerSpec extends UnitSpec
+class ApiDocumentationControllerV2EnabledSpec extends UnitSpec
   with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with MockitoSugar with GuiceOneAppPerSuite {
 
   private implicit lazy val materializer: Materializer = app.materializer
 
-  private val definitionJsonContent = getResourceFileContent("/public/api/definition.json")
+  private val definitionJsonContentV2Enabled = getResourceFileContent("/public/api/definitionV2Enabled.json")
   private val applicationRamlContent = getResourceFileContent("/public/api/conf/1.0/example.raml")
 
   override implicit lazy val app: Application = GuiceApplicationBuilder(
@@ -48,12 +48,13 @@ class ApiDocumentationControllerSpec extends UnitSpec
         "appName" -> "vat-registered-companies-api",
         "appUrl" -> "https://vat-registered-companies-api.gov.uk",
         "auditing.enabled" -> false,
-        "auditing.traceRequests" -> false
+        "auditing.traceRequests" -> false,
+        "api.v2.enabled" -> true
       )
     ).build()
 
   "DocumentationController" should {
-    "serve definition.json" in assertRoutedContent("/api/definition", definitionJsonContent)
+    "serve definitionV2Enabled.json" in assertRoutedContent("/api/definition", definitionJsonContentV2Enabled)
 
     "serve example.raml" in assertRoutedContent("/api/conf/1.0/example.raml", applicationRamlContent)
   }
