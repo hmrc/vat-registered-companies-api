@@ -1,36 +1,58 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   title: Check a UK VAT number
   description: |
     # Overview
-    This API enables your application to:
+    
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-visually-hidden">Warning</span>
+        Version 2 is the recommended version of this API. Version 1 will be removed in January 2025
+      </strong>
+    </div>
+    
+    The Check a UK VAT Number API lets your application:
 
     * check if a UK VAT number is registered
-    * view the name and address of the business that the UK VAT number is registered to
-    * get a reference number that you can use to prove you checked a UK VAT number
+    * view the name and address of the related business
+    * get a reference number to prove you checked the UK VAT number
 
-    The Check a UK VAT Number API works in two modes:
+    This API works in two modes:
 
     1. Simple unverified check, which does not provide a reference number
     2. Verified check, which provides a reference number
-
-    # Versioning
-    When an API changes in a way that is backwards-incompatible, we increase the version number of the API.
-    See our [reference guide](/api-documentation/docs/reference-guide#versioning) for more on
-    versioning.
+    
+    # About version 2
+    Version 2 moves the Check Your VAT Registration Number API behind authentication. You need to register to have access.
+    
+    We are moving the API behind authentication so we fully understand our users.
+    
+    You can still use version 1 until January 2025.
+    
+    # Register for version 2
+    [Register for the new API using HMRC’s Software Developer Hub.](https://developer.service.hmrc.gov.uk/api-documentation/docs/using-the-hub)
+    
+    Registering should take around 2 weeks. It may take longer if we need more information.
+    
+    You will get production credentials once you have tested in the Sandbox environment and accepted the Terms of Use 2.0.
+    
+    # When version 1 will be removed
+    Version 1 will be removed in January 2025.
 
     # Errors
-    We use standard HTTP status codes to show whether an API request succeeded or not. They are usually in the range:
-    * 200 to 299 if it succeeded, including code 202 if it was accepted by an API that needs to wait for further action
-    * 400 to 499 if it failed because of a client error by your application
-    * 500 to 599 if it failed because of an error on our server
+    We use standard HTTP status codes:
+    * 200 to 299 if the request succeeded. This includes code 202 if the API needs to wait for further action
+    * 400 to 499 if the request failed because of a client error by your application
+    * 500 to 599 if the request failed because of an error on our server
 
-    Errors specific to each API are shown in the Endpoints section, under Response.
-    See our [reference guide](/api-documentation/docs/reference-guide#errors) for more on errors.
+    Errors specific to each API are shown in the Endpoints section, under Response. For more on errors see our [HMRC Developer Hub Reference guide](https://developer.service.hmrc.gov.uk/api-documentation/docs/reference-guide#errors).
 
     # Testing
-    You can use the sandbox environment to [test this API](https://developer.service.hmrc.gov.uk/api-documentation/docs/testing).
-    [Access a set of mock VAT registration numbers](https://github.com/hmrc/vat-registered-companies-api/tree/master/public/api/conf/1.0/test-data) to use when testing in the sandbox environment.
+    You can [test this API in the sandbox environment](https://developer.service.hmrc.gov.uk/api-documentation/docs/testing). Use these [mock VAT registration numbers](https://github.com/hmrc/vat-registered-companies-api/tree/master/public/api/conf/1.0/test-data).
+    
+    # Versioning
+    We release backwards-incompatible changes in a new version. There is more about versioning in the [HMRC Developer Hub Reference guide](https://developer.service.hmrc.gov.uk/api-documentation/docs/reference-guide#versioning).
 
   contact: {}
   version: '2.0'
