@@ -1,0 +1,1 @@
+We release backwards-incompatible changes in a new version. There is more about versioning in the [HMRC Developer Hub Reference guide](https://developer.service.hmrc.gov.uk/api-documentation/docs/reference-guide#versioning).
