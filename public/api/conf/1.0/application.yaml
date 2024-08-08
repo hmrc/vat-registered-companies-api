@@ -8,7 +8,7 @@ info:
       <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
       <strong class="govuk-warning-text__text">
         <span class="govuk-visually-hidden">Warning</span>
-        Version 2 of this API is now available. Version 1 will be removed in January 2025
+        Version 2 of this API is now available. Version 1 will be removed in January 2025.
       </strong>
     </div>
     
@@ -20,8 +20,8 @@ info:
 
     This API works in two modes:
 
-    1. Simple unverified check, which does not provide a reference number
-    2. Verified check, which provides a reference number
+    1. Simple unverified check, which does not provide a reference number.
+    2. Verified check, which provides a reference number.
 
     
     # About version 2
@@ -33,7 +33,7 @@ info:
     
     
     # Register for version 2
-    [Register for the new API using HMRC’s Software Developer Hub.](https://developer.service.hmrc.gov.uk/api-documentation/docs/using-the-hub)
+    [Register for the new API using HMRC’s Software Developer Hub](https://developer.service.hmrc.gov.uk/api-documentation/docs/using-the-hub).
     
     Registering should take around 2 weeks. It may take longer if we need more information.
     
