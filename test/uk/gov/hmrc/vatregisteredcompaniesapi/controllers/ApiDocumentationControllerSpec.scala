@@ -31,7 +31,7 @@ import uk.gov.hmrc.vatregisteredcompaniesapi.util.UnitSpec
 import java.io.FileNotFoundException
 import scala.concurrent.Future
 
-class ApiDocumentationControllerV2EnabledSpec extends UnitSpec
+class ApiDocumentationControllerSpec extends UnitSpec
   with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with MockitoSugar with GuiceOneAppPerSuite {
 
   private implicit lazy val materializer: Materializer = app.materializer
@@ -48,8 +48,7 @@ class ApiDocumentationControllerV2EnabledSpec extends UnitSpec
         "appName" -> "vat-registered-companies-api",
         "appUrl" -> "https://vat-registered-companies-api.gov.uk",
         "auditing.enabled" -> false,
-        "auditing.traceRequests" -> false,
-        "api.v2.enabled" -> true
+        "auditing.traceRequests" -> false
       )
     ).build()
 

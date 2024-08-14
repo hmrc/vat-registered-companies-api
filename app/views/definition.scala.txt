@@ -1,5 +1,5 @@
 @import play.api.libs.json.Json
-@(apiContext: String, whitelistedApplicationIds: Seq[String])
+@(apiContext: String)
 {
   "scopes":[],
   "api": {
