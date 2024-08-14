@@ -17,15 +17,17 @@
 package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
 import cats.implicits._
+
 import javax.inject.{Inject, Singleton}
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent, ControllerComponents, Result}
+import play.api.mvc.{Action, AnyContent, ControllerComponents, Request, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import uk.gov.hmrc.vatregisteredcompaniesapi.connectors.VatRegisteredCompaniesConnector
 import uk.gov.hmrc.vatregisteredcompaniesapi.logging.VrcLogger
 import uk.gov.hmrc.vatregisteredcompaniesapi.models.{Lookup, LookupRequestError, LookupResponse, VatNumber}
+
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
@@ -38,11 +40,13 @@ class VatRegCoLookupController @Inject()(
 
   def lookupVerified(target: VatNumber, requester: VatNumber): Action[AnyContent] =
     Action.async { implicit request =>
+      logVersionOfApiCalled
       lookup(Lookup(target, true, requester.some))
     }
 
   def lookup(target: VatNumber): Action[AnyContent] =
     Action.async { implicit request =>
+      logVersionOfApiCalled
       lookup(Lookup(target))
     }
 
@@ -92,6 +96,14 @@ class VatRegCoLookupController @Inject()(
             )
           InternalServerError(Json.toJson(LookupRequestError("INTERNAL_SERVER_ERROR", "Unknown error")))
       }
+    }
+  }
+
+  private def logVersionOfApiCalled(implicit request: Request[_]): Unit = {
+    request.headers.get(ACCEPT) match {
+      case Some(header) if header.endsWith("2.0+json") =>
+        logger.info("Version 2.0 of the api has been called")
+      case _ => logger.info("Version 1.0 of the api has been called")
     }
   }
 

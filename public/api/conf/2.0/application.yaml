@@ -68,6 +68,8 @@ paths:
       description: Allows retrieval of name and address of a VAT registered company
       operationId: GetaVATregistration
       parameters:
+        - $ref: '#/components/parameters/acceptHeader'
+        - $ref: '#/components/parameters/authorizationReadScopeHeader'
         - name: targetVrn
           in: path
           description: UK VAT registration number you wish to check. <br> A 9-digit or 12-digit number.
@@ -150,7 +152,7 @@ paths:
                 message: Unknown error
       deprecated: false
       security:
-        - appScheme: []
+        - applicationRestricted: []
   /organisations/vat/check-vat-number/lookup/{targetVrn}/{requesterVrn}:
     get:
       tags:
@@ -159,6 +161,8 @@ paths:
       description: Retrieves the name and address of a UK VAT-registered business, if the business exists.
       operationId: GetaVATregistrationwithareferencenumber
       parameters:
+        - $ref: '#/components/parameters/acceptHeader'
+        - $ref: '#/components/parameters/authorizationReadScopeHeader'
         - name: targetVrn
           in: path
           description: UK VAT registration number you want to check. <br> A 9-digit or 12-digit number.
@@ -268,16 +272,36 @@ paths:
                 message: Unknown error
       deprecated: false
       security:
-        - appScheme: []
+        - applicationRestricted: []
 components:
   securitySchemes:
-    appScheme:
+    applicationRestricted:
       type: oauth2
       description: HMRC supports OAuth 2.0 for authenticating app-restricted API requests
       flows:
         clientCredentials:
           tokenUrl: https://api.service.hmrc.gov.uk/oauth/token
-          scopes: {}
+          scopes:
+            read:vat: Grant read access
+  parameters:
+    acceptHeader:
+      name: Accept
+      in: header
+      schema:
+        type: string
+        enum: [
+          "application/vnd.hmrc.2.0+json",
+        ]
+      required: true
+    authorizationReadScopeHeader:
+      name: "Authorization"
+      in: header
+      description: |
+        An OAuth 3.0 Bearer Token with the *read:vat* scope.
+      schema:
+        type: string
+        example: Bearer bb7fed3fe10dd235a2ccda3d50fb
+      required: true
   schemas:
     errorResponse:
       title: errorResponse
