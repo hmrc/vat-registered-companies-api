@@ -297,7 +297,7 @@ components:
       name: "Authorization"
       in: header
       description: |
-        An OAuth 3.0 Bearer Token with the *read:vat* scope.
+        An OAuth 2.0 Bearer Token with the *read:vat* scope.
       schema:
         type: string
         example: Bearer bb7fed3fe10dd235a2ccda3d50fb
