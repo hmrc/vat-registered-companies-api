@@ -39,17 +39,9 @@ class ApiDocumentationController @Inject()
     assets.at(s"/public/api/conf/$version", file)
   }
   def definition: Action[AnyContent] = Action.async {
-    val definition = if(appContext.v2Enabled) {
-      txt.definition(
-        appContext.apiContext,
-        appContext.whiteListedAppIds.getOrElse(Seq.empty[String])
+    val definition = txt.definition(
+        appContext.apiContext
       )
-    } else {
-      txt.definitionV1Only(
-        appContext.apiContext,
-        appContext.whiteListedAppIds.getOrElse(Seq.empty[String])
-      )
-    }
     Future.successful(
       Ok(
         definition
