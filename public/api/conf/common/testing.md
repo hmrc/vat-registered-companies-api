@@ -1,1 +1,1 @@
-You can [test this API in the sandbox environment](https://developer.service.hmrc.gov.uk/api-documentation/docs/testing). Use these [mock VAT registration numbers](https://github.com/hmrc/vat-registered-companies-api/tree/master/public/api/conf/1.0/test-data).
+You can [test this API in the sandbox environment](https://developer.service.hmrc.gov.uk/api-documentation/docs/testing). Use these [mock VAT registration numbers](https://github.com/hmrc/vat-registered-companies-api/tree/master/public/api/conf/2.0/test-data).
