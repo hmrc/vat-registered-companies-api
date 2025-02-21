@@ -98,7 +98,7 @@ lazy val commonSettings: Seq[Setting[_]] =
     gitStampSettings
 
 lazy val scoverageSettings: Seq[Setting[_]] = Seq(
-  coverageExcludedPackages := Seq("<empty>",".*(Reverse|Routes).*","com.kenshoo.play.metrics.*",".*definition.*","prod.*","testOnlyDoNotUseInAppConf.*","app.*","uk.gov.hmrc.BuildInfo",".*connector.*",".*config.*").mkString(","),
+  coverageExcludedPackages := Seq("<empty>",".*(Reverse|Routes).*","com.kenshoo.play.metrics.*",".*definition.*","prod.*","testOnlyDoNotUseInAppConf.*","app.*","uk.gov.hmrc.BuildInfo",".*config.*").mkString(","),
   coverageMinimumStmtTotal := 96,
   coverageFailOnMinimum := true,
   coverageHighlighting := true,
