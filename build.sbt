@@ -17,16 +17,13 @@
 import AppDependencies.{compile => compileDependencies, test => testDependencies}
 import sbt.Keys._
 import sbt.Tests.{Group, SubProcess}
-import sbt.*
-import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, scalaSettings, targetJvm}
-import uk.gov.hmrc.gitstamp.GitStampPlugin.*
-import sbt.dsl.LinterLevel.Ignore
+import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, scalaSettings}
+import uk.gov.hmrc.gitstamp.GitStampPlugin.gitStampSettings
 
 name := "vat-registered-companies-api"
 PlayKeys.playDefaultPort := 8733
 
-targetJvm := "jvm-11"
-scalaVersion := "2.13.12"
+scalaVersion := "3.3.4"
 
 Seq( gitStampSettings: _* )
 
@@ -101,7 +98,7 @@ lazy val commonSettings: Seq[Setting[_]] =
     gitStampSettings
 
 lazy val scoverageSettings: Seq[Setting[_]] = Seq(
-  coverageExcludedPackages := "<empty>;.*(Reverse|Routes).*;com.kenshoo.play.metrics.*;.*definition.*;prod.*;testOnlyDoNotUseInAppConf.*;app.*;uk.gov.hmrc.BuildInfo;.*connector.*;.*config.*",
+  coverageExcludedPackages := Seq("<empty>",".*(Reverse|Routes).*","com.kenshoo.play.metrics.*",".*definition.*","prod.*","testOnlyDoNotUseInAppConf.*","app.*","uk.gov.hmrc.BuildInfo",".*connector.*",".*config.*").mkString(","),
   coverageMinimumStmtTotal := 96,
   coverageFailOnMinimum := true,
   coverageHighlighting := true,

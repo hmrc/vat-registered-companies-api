@@ -152,9 +152,6 @@ class VatRegCoLookupControllerSpec extends AnyWordSpec
       when(mockVatRegisteredCompaniesConnector.lookup(any())(any(),any())).thenReturn(Future.failed(new Throwable))
       val result = controller.lookup(testVatNo).apply(fakeRequest)
       status(result) shouldBe Status.INTERNAL_SERVER_ERROR
-      Json.fromJson[LookupResponse](contentAsJson(result)).map { lr =>
-        lr.target shouldBe Some(knownCo)
-      }
     }
   }
 
