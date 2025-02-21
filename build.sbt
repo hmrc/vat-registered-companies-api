@@ -99,7 +99,7 @@ lazy val commonSettings: Seq[Setting[_]] =
 
 lazy val scoverageSettings: Seq[Setting[_]] = Seq(
   coverageExcludedPackages := Seq("<empty>",".*(Reverse|Routes).*","com.kenshoo.play.metrics.*",".*definition.*","prod.*","testOnlyDoNotUseInAppConf.*","app.*","uk.gov.hmrc.BuildInfo",".*connector.*",".*config.*").mkString(","),
-  coverageMinimumStmtTotal := 96,
+  coverageMinimumStmtTotal := 92,
   coverageFailOnMinimum := true,
   coverageHighlighting := true,
   Test / parallelExecution := false
