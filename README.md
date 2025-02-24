@@ -3,7 +3,7 @@
 
 This is the vat-registered-companies-api repo.
 
-It has been upgraded to Java 11, sbt 1.9.9, Scala 2.13.12, Play 3.0.
+It has been upgraded to Java 21, sbt 1.9.9, Scala 3.3.4, Play 3.0.
 
 # Run Services
 
