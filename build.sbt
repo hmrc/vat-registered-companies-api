@@ -23,7 +23,7 @@ import uk.gov.hmrc.gitstamp.GitStampPlugin.gitStampSettings
 name := "vat-registered-companies-api"
 PlayKeys.playDefaultPort := 8733
 
-scalaVersion := "3.3.4"
+scalaVersion := "3.3.5"
 
 Seq( gitStampSettings: _* )
 
