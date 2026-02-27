@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
+package uk.gov.hmrc.vatregisteredcompaniesapi.controllers.definition
 
 import controllers.Assets
-
-import javax.inject.{Inject, Singleton}
 import play.api.http.{ContentTypes, MimeTypes}
 import play.api.mvc.{Action, AnyContent, Codec, ControllerComponents}
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import uk.gov.hmrc.vatregisteredcompaniesapi.config.AppContext
 import views.txt
 
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.Future
 
 @Singleton
