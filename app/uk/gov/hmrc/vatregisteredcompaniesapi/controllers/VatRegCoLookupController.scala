@@ -16,7 +16,8 @@
 
 package uk.gov.hmrc.vatregisteredcompaniesapi.controllers
 
-import cats.implicits._
+import cats.implicits.*
+import play.api.Logging
 
 import javax.inject.{Inject, Singleton}
 import play.api.libs.json.Json
@@ -32,20 +33,33 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class VatRegCoLookupController @Inject()(
   vatRegisteredCompaniesConnector: VatRegisteredCompaniesConnector,
-  cc: ControllerComponents,
-  logger: VrcLogger
-)(using executionContext: ExecutionContext) extends BackendController(cc) {
+  cc: ControllerComponents
+)(using executionContext: ExecutionContext) extends BackendController(cc) with Logging {
 
   def lookupVerified(target: VatNumber, requester: VatNumber): Action[AnyContent] =
     Action.async { implicit request =>
+      val startTime = System.currentTimeMillis()
+      
+      logger.info(s"VatRegCoLookup request target=$target requester=${hc.requestId.map(_.value).getOrElse("-")}")
+
       logVersionOfApiCalled
-      handleRequest(Lookup(target, true, requester.some))
+      handleRequest(Lookup(target, true, requester.some)).map {result =>
+        logger.info(s"VatRegCoLookup request target=$target status=${result.header.status} duration=${System.currentTimeMillis() - startTime}")
+        result
+      }
     }
 
   def lookup(target: VatNumber): Action[AnyContent] =
     Action.async { implicit request =>
+      val startTime = System.currentTimeMillis()
+
+      logger.info(s"VatRegCoLookup request target=$target request=${hc.requestId.map(_.value).getOrElse("-")}")
+
       logVersionOfApiCalled
-      handleRequest(Lookup(target))
+      handleRequest(Lookup(target)).map(result =>
+        logger.info(s"VatRegCoLookup request target=$target status=${result.header.status} duration=${System.currentTimeMillis() - startTime}")
+        result
+      )
     }
 
   private val vatNoRegex: String = "^[0-9]{9}|[0-9]{12}$"
@@ -91,9 +105,9 @@ class VatRegCoLookupController @Inject()(
         Ok(Json.toJson(company))
 
     }.recover {
-      case e => logger.error
-        (e.getMessage, e.fillInStackTrace())
-           InternalServerError(Json.toJson(LookupRequestError("INTERNAL_SERVER_ERROR", "Unknown error")))
+      case e => 
+        logger.error(e.getMessage, e.fillInStackTrace())
+        InternalServerError(Json.toJson(LookupRequestError("INTERNAL_SERVER_ERROR", "Unknown error")))
     }
   }
 
