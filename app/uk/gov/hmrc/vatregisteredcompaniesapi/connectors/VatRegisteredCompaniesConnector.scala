@@ -18,7 +18,7 @@ package uk.gov.hmrc.vatregisteredcompaniesapi.connectors
 
 
 import javax.inject.Inject
-import play.api.{Configuration, Environment, Logger, Logging}
+import play.api.{Configuration, Environment}
 import uk.gov.hmrc.http.{HeaderCarrier, StringContextOps}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.vatregisteredcompaniesapi.models.*
@@ -28,11 +28,15 @@ import uk.gov.hmrc.http.client.HttpClientV2
 import java.net.{URL, URLEncoder}
 import scala.util.control.NonFatal
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.vatregisteredcompaniesapi.logging.VrcLogger
 
 class VatRegisteredCompaniesConnector @Inject()(
   http: HttpClientV2,
-  servicesConfig: ServicesConfig
-) extends Logging {
+  servicesConfig: ServicesConfig,
+  logger: VrcLogger
+)  {
+  
+  
 
   private def requestId(hc: HeaderCarrier): String =
     hc.requestId.map(_.value).getOrElse("-")
@@ -72,11 +76,6 @@ class VatRegisteredCompaniesConnector @Inject()(
           .map { response =>
             logger.info(s"VatRegisteredCompanies lookup response ${vatRegContext(completeUrl, lookup, hc)} status=200 durationMs=${System.currentTimeMillis() - startTime}")
             Some(response)
-          }
-          .recover {
-            case NonFatal(e) =>
-              logger.error(s"VatRegisteredCompanies lookup failure ${vatRegContext(completeUrl, lookup, hc)} durationMs=${System.currentTimeMillis() - startTime} error=${e.getMessage}", e)
-              None
           }
 
       case _ =>

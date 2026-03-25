@@ -33,7 +33,8 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class VatRegCoLookupController @Inject()(
   vatRegisteredCompaniesConnector: VatRegisteredCompaniesConnector,
-  cc: ControllerComponents
+  cc: ControllerComponents,
+  logger: VrcLogger
 )(using executionContext: ExecutionContext) extends BackendController(cc) with Logging {
 
   def lookupVerified(target: VatNumber, requester: VatNumber): Action[AnyContent] =
