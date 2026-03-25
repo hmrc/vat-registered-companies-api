@@ -32,7 +32,7 @@ class VatRegisteredCompanySpec extends AnyFunSuite {
       line4 = None,
       line5 = None,
       postcode = None,
-      countryCode = "+44"
+      countryCode = "GB"
     )
   )
 
@@ -43,7 +43,7 @@ class VatRegisteredCompanySpec extends AnyFunSuite {
       |  "vatNumber": "553557881",
       |  "address": {
       |    "line1": "3 example road",
-      |    "countryCode": "+44"
+      |    "countryCode": "GB"
       |  }
       |}
     """.stripMargin

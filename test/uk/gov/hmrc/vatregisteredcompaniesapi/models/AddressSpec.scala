@@ -28,14 +28,14 @@ class AddressSpec extends AnyFunSuite {
     line4 = None,
     line5 = None,
     postcode = None,
-    countryCode = "+44"
+    countryCode = "GB"
   )
 
   private val expectedJson = Json.parse(
     """
       |{
       | "line1": "2 example road",
-      | "countryCode": "+44"
+      | "countryCode": "GB"
       |}
       |
      """.stripMargin
