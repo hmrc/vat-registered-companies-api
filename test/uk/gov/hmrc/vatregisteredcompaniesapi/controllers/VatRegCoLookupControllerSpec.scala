@@ -37,6 +37,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
+
 class VatRegCoLookupControllerSpec extends AnyWordSpec
   with Matchers
   with MockitoSugar
@@ -45,7 +46,8 @@ class VatRegCoLookupControllerSpec extends AnyWordSpec
 
   val mockVatRegisteredCompaniesConnector: VatRegisteredCompaniesConnector = mock[VatRegisteredCompaniesConnector]
   val cc = play.api.test.Helpers.stubControllerComponents()
-  val controller = new VatRegCoLookupController(mockVatRegisteredCompaniesConnector, cc)
+  private val mockLogger = new VRCLLogger(mock[ServicesConfig])
+  val controller = new VatRegCoLookupController(mockVatRegisteredCompaniesConnector, cc, mockLogger)
   val testVatNo: VatNumber = "123456789"
   val testConsultationNumber: ConsultationNumber = ConsultationNumber.generate
   val testProcessingDate: ProcessingDate = ZonedDateTime.now.withZoneSameInstant(ZoneId.of("Europe/London"))
