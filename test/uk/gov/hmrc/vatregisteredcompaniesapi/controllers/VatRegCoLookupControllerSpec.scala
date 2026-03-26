@@ -37,6 +37,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
+
 class VatRegCoLookupControllerSpec extends AnyWordSpec
   with Matchers
   with MockitoSugar

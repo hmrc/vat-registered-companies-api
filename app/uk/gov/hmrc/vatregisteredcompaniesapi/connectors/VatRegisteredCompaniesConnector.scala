@@ -16,33 +16,86 @@
 
 package uk.gov.hmrc.vatregisteredcompaniesapi.connectors
 
+
 import javax.inject.Inject
 import play.api.{Configuration, Environment}
 import uk.gov.hmrc.http.{HeaderCarrier, StringContextOps}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.vatregisteredcompaniesapi.models._
-import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.vatregisteredcompaniesapi.models.*
+import uk.gov.hmrc.http.HttpReads.Implicits.*
 import uk.gov.hmrc.http.client.HttpClientV2
 
+import java.net.{URL, URLEncoder}
+import scala.util.control.NonFatal
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.vatregisteredcompaniesapi.logging.VrcLogger
 
 class VatRegisteredCompaniesConnector @Inject()(
   http: HttpClientV2,
-  servicesConfig: ServicesConfig
-) {
+  servicesConfig: ServicesConfig,
+  logger: VrcLogger
+)  {
+  
+  
+
+  private def requestId(hc: HeaderCarrier): String =
+    hc.requestId.map(_.value).getOrElse("-")
+
+  private def sessionId(hc: HeaderCarrier): String =
+    hc.sessionId.map(_.value).getOrElse("-")
+
+  private def outBoundHeaderCarrier(hc: HeaderCarrier): HeaderCarrier =
+    HeaderCarrier(
+      requestId = hc.requestId,
+      sessionId = hc.sessionId
+    )
+
+  private def vatRegContext(path: URL, lookup: Lookup, hc: HeaderCarrier) = {
+    Seq(
+      Some(s"path=$path"),
+      Some(s"lookup=${lookup.target.clean}"),
+      Some(s"requestId=${requestId(hc)}"),
+      Some(s"sessionId=${sessionId(hc)}")
+    ).flatten.mkString(" ")
+  }
+
 
   lazy val url: String = s"${servicesConfig.baseUrl("vat-registered-companies")}/vat-registered-companies"
 
-  def lookup(lookup: Lookup)
-    (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[LookupResponse]] = lookup.requester match {
-    case Some(requester) =>
-      http.get(url"$url/lookup/${lookup.target.clean}/$requester")
-        .execute[LookupResponse]
-        .map(Some(_))
-    case _ =>
-      http.get(url"$url/lookup/${lookup.target.clean}")
-        .execute[LookupResponse]
-        .map(Some(_))
+  def lookup(lookup: Lookup)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[LookupResponse]] = {
+    val startTime = System.currentTimeMillis()
+    val vatHc = outBoundHeaderCarrier(hc)
+
+    lookup.requester match {
+      case Some(requester) =>
+        val completeUrl = url"$url/lookup/${lookup.target.clean}/$requester"
+        logger.info(s"VatRegisteredCompanies lookup request ${vatRegContext(completeUrl, lookup, hc)}")
+
+        http.get(completeUrl)(using vatHc)
+          .execute[LookupResponse]
+          .map { response =>
+            logger.info(s"VatRegisteredCompanies lookup response ${vatRegContext(completeUrl, lookup, hc)} status=200 durationMs=${System.currentTimeMillis() - startTime}")
+            Some(response)
+          }
+
+      case _ =>
+        val completeUrl = url"$url/lookup/${lookup.target.clean}"
+        logger.info(s"VatRegisteredCompanies lookup request ${vatRegContext(completeUrl, lookup, hc)}")
+
+        http.get(completeUrl)(using vatHc)
+          .execute[LookupResponse]
+          .map { response =>
+            logger.info(s"VatRegisteredCompanies lookup response ${vatRegContext(completeUrl, lookup, hc)} status=200 durationMs=${System.currentTimeMillis() - startTime}")
+            Some(response)
+          }
+          .recover {
+            case NonFatal(e) =>
+              logger.error(s"VatRegisteredCompanies lookup failure ${vatRegContext(completeUrl, lookup, hc)} durationMs=${System.currentTimeMillis() - startTime} error=${e.getMessage}", e)
+              None
+          }
+    }
   }
+
+
 
 }
