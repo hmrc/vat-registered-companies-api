@@ -9,17 +9,13 @@
         "version": "1.0",
         "status": "RETIRED",
         "endpointsEnabled": true,
-        "access": {
-          "type": "PUBLIC"
-        }
+        "access": "PUBLIC"
       },
       {
         "version": "2.0",
         "status": "BETA",
         "endpointsEnabled": true,
-        "access": {
-          "type": "PUBLIC"
-        }
+        "access": "PUBLIC"
       }
     ]
   }
